@@ -67,7 +67,7 @@ const NavLink = ({ to, currentPage, setCurrentPage, pageName, children }) => {
       // Added flex-1 to make items take equal width, text-center for centering text,
       // and responsive font size (text-sm on small screens, text-lg on md and up)
       className={`
-        flex-1 text-center py-2 rounded-lg font-medium transition-colors duration-200
+        flex flex-1 items-center justify-center text-center py-2 rounded-lg font-medium transition-colors duration-200
         text-sm sm:text-base md:text-lg
         ${isActive ? 'bg-frost2 text-polarNight0' : 'text-snowStorm0 hover:bg-polarNight2'}
       `}
