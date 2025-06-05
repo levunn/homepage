@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/homepage/static/css/main.77ab867b.css",
+    "main.js": "/homepage/static/js/main.c03b06e1.js",
+    "static/media/1000021689.jpg": "/homepage/static/media/1000021689.99e95cc06a4191e374ce.jpg",
+    "static/media/IMG_2626.jpg": "/homepage/static/media/IMG_2626.58fb43d75d6eed774ef3.jpg",
+    "static/media/IMG_4517.jpg": "/homepage/static/media/IMG_4517.ec9d2770c1a37f5c646f.jpg",
+    "static/media/IMG_2860.jpg": "/homepage/static/media/IMG_2860.1e973a85843d95faa59b.jpg",
+    "static/media/IMG_4821.jpg": "/homepage/static/media/IMG_4821.3b593f7d32921e821bc7.jpg",
+    "static/media/IMG_4652.jpg": "/homepage/static/media/IMG_4652.c7cfbedd16e3b1199529.jpg",
+    "static/media/IMG_3006_.jpg": "/homepage/static/media/IMG_3006_.77263a27f86e2225ae6a.jpg",
+    "static/media/earth_lights_2048.png": "/homepage/static/media/earth_lights_2048.2e2a7ae021877422b8ce.png",
+    "static/media/earth_atmos_2048.jpg": "/homepage/static/media/earth_atmos_2048.1d03374b348d40e2fe53.jpg",
+    "static/media/earth_normal_2048.jpg": "/homepage/static/media/earth_normal_2048.4757980b7fc36ed41ca5.jpg",
+    "static/media/earth_clouds_1024.png": "/homepage/static/media/earth_clouds_1024.5f945f68a64d7addbdd4.png",
+    "static/media/earth_specular_2048.jpg": "/homepage/static/media/earth_specular_2048.7c4c15698b5c37e69fc0.jpg",
+    "static/media/me.png": "/homepage/static/media/me.43300c123b8463564843.png",
+    "static/media/utokyo_logo.png": "/homepage/static/media/utokyo_logo.9e7144f7fdda76a52a35.png",
+    "index.html": "/homepage/index.html",
+    "main.77ab867b.css.map": "/homepage/static/css/main.77ab867b.css.map",
+    "main.c03b06e1.js.map": "/homepage/static/js/main.c03b06e1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.77ab867b.css",
+    "static/js/main.c03b06e1.js"
+  ]
+}
