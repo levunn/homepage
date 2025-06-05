@@ -1,8 +1,6 @@
 // src/components/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaGoogleScholar, FaLinkedin, FaGithub } from 'react-icons/fa'; // assuming react-icons is installed
-
 const nordColors = {
   polarNight0: '#2E3440',
   polarNight1: '#3B4252',

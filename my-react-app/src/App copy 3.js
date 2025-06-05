@@ -19,8 +19,11 @@ import EducationPage from './pages/EducationPage';
 import ExperiencePage from './pages/ExperiencePage';
 import AwardsPage from './pages/AwardsPage';
 import GalleryPage from './pages/GalleryPage';
-import { Mail } from 'lucide-react';
+import {
+  Mail, // Contact用
+} from 'lucide-react';
 
+// Nord Color Palette (Approximate Hex Color Codes)
 const nordColors = {
   polarNight0: '#2E3440',
   polarNight1: '#3B4252',
@@ -40,15 +43,22 @@ const nordColors = {
   auroraPurple: '#B48EAD',
 };
 
+// Helper component for section titles with icons
+// この SectionTitle は HomePage や他のページコンポーネントに props として渡すか、
+// 各コンポーネントが個別にインポート/定義する必要があります。
+// ここでは App.js で定義し、HomePage に props で渡します。
 function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
   return (
     <div className="flex items-center mb-4">
       <IconComponent className="w-7 h-7 md:w-8 md:h-8 mr-3 flex-shrink-0" style={{ color: iconColor }} />
-      <h2 className="text-3xl font-semibold" style={{ color: titleColor }}>{title}</h2>
+      <h2 className="text-3xl font-semibold" style={{ color: titleColor }}>
+        {title}
+      </h2>
     </div>
   );
 }
 
+// Main App Component
 function App() {
   const mountRef = useRef(null);
   const [loading, setLoading] = useState(true);
@@ -60,12 +70,11 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const mountNode = mountRef.current;
-    if (!mountNode) {
+    if (!mountRef.current) {
       console.log("mountRef.current is null on initial render, waiting for DOM.");
       return;
     }
-    if (mountNode.querySelector('canvas')) {
+    if (mountRef.current.querySelector('canvas')) {
       console.warn('Three.js canvas already exists. Skipping re-initialization.');
       setLoading(false);
       return;
@@ -75,6 +84,12 @@ function App() {
     let animationFrameId;
 
     const textureLoader = new THREE.TextureLoader();
+    const earthDayMapUrl = earthDayMap;
+    const earthNightMapUrl = earthNightMap;
+    const earthCloudsMapUrl = earthCloudsMap;
+    const earthSpecularMapUrl = earthSpecularMap;
+    const earthNormalMapUrl = earthNormalMap;
+
     const onWindowResize = () => {
       if (camera && renderer) {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -93,7 +108,10 @@ function App() {
       renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(window.innerWidth, window.innerHeight);
-      if (!mountNode.querySelector('canvas')) mountNode.appendChild(renderer.domElement);
+
+      if (!mountRef.current.querySelector('canvas')) {
+        mountRef.current.appendChild(renderer.domElement);
+      }
 
       controls = new OrbitControls(camera, renderer.domElement);
       controls.enableDamping = true;
@@ -116,7 +134,7 @@ function App() {
         normalMap: normalMap,
         normalScale: new THREE.Vector2(1, 1),
       });
-      earth = new THREE.Mesh(earthGeometry, earthMaterial);
+      earth = new THREE.Mesh(earthGeometry, dayMap ? earthMaterial : new THREE.MeshPhongMaterial({ color: new THREE.Color(nordColors.frost3) }));
       scene.add(earth);
 
       const cloudsGeometry = new THREE.SphereGeometry(1.51, 64, 64);
@@ -127,7 +145,7 @@ function App() {
         blending: THREE.AdditiveBlending,
         alphaMap: cloudsMap,
       });
-      clouds = new THREE.Mesh(cloudsGeometry, cloudsMaterial);
+      clouds = new THREE.Mesh(cloudsGeometry, cloudsMap ? cloudsMaterial : new THREE.MeshBasicMaterial({ transparent: true, opacity: 0 }));
       scene.add(clouds);
 
       const ambientLight = new THREE.AmbientLight(nordColors.snowStorm0, 0.3);
@@ -139,12 +157,14 @@ function App() {
 
       const particleCount = 1000;
       const particleGeometry = new THREE.BufferGeometry();
-      const positions = [], colors = [], palette = [
+      const positions = [];
+      const colors = [];
+      const colorPalette = [
         new THREE.Color(nordColors.frost0),
         new THREE.Color(nordColors.frost1),
         new THREE.Color(nordColors.frost2),
         new THREE.Color(nordColors.auroraGreen),
-        new THREE.Color(nordColors.auroraPurple)
+        new THREE.Color(nordColors.auroraPurple),
       ];
 
       for (let i = 0; i < particleCount; i++) {
@@ -155,7 +175,8 @@ function App() {
         const y = radius * Math.sin(phi) * Math.sin(theta);
         const z = radius * Math.cos(phi);
         positions.push(x, y, z);
-        const color = palette[Math.floor(Math.random() * palette.length)];
+
+        const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
         colors.push(color.r, color.g, color.b);
       }
 
@@ -171,6 +192,7 @@ function App() {
       });
       particles = new THREE.Points(particleGeometry, particleMaterial);
       scene.add(particles);
+
       setLoading(false);
     };
 
@@ -187,11 +209,11 @@ function App() {
 
     setLoading(true);
     Promise.all([
-      textureLoader.loadAsync(earthDayMap),
-      textureLoader.loadAsync(earthNightMap),
-      textureLoader.loadAsync(earthCloudsMap),
-      textureLoader.loadAsync(earthSpecularMap),
-      textureLoader.loadAsync(earthNormalMap)
+      textureLoader.loadAsync(earthDayMapUrl),
+      textureLoader.loadAsync(earthNightMapUrl),
+      textureLoader.loadAsync(earthCloudsMapUrl),
+      textureLoader.loadAsync(earthSpecularMapUrl),
+      textureLoader.loadAsync(earthNormalMapUrl)
     ]).then(([dayMap, nightMap, cloudsMap, specularMap, normalMap]) => {
       init(dayMap, nightMap, cloudsMap, null, specularMap, normalMap);
       animate();
@@ -208,23 +230,28 @@ function App() {
       window.removeEventListener('resize', onWindowResize);
       cancelAnimationFrame(animationFrameId);
       if (scene) {
-        scene.traverse(obj => {
-          if (obj.isMesh) {
-            obj.geometry.dispose();
-            if (Array.isArray(obj.material)) {
-              obj.material.forEach(m => m.dispose());
-            } else if (obj.material) {
-              obj.material.dispose();
+        scene.traverse(object => {
+          if (object.isMesh) {
+            object.geometry.dispose();
+            if (Array.isArray(object.material)) {
+              object.material.forEach(material => material.dispose());
+            } else if (object.material) {
+              object.material.dispose();
             }
           }
         });
+        scene = null;
       }
-      if (controls) controls.dispose();
+      if (controls) {
+        controls.dispose();
+        controls = null;
+      }
       if (renderer) {
-        if (mountNode && renderer.domElement && mountNode.contains(renderer.domElement)) {
-          mountNode.removeChild(renderer.domElement);
+        if (mountRef.current && renderer.domElement && mountRef.current.contains(renderer.domElement)) {
+          mountRef.current.removeChild(renderer.domElement);
         }
         renderer.dispose();
+        renderer = null;
       }
     };
   }, []);
@@ -233,23 +260,43 @@ function App() {
     <Router>
       <div className="relative min-h-screen font-inter overflow-hidden" style={{ backgroundColor: nordColors.polarNight0 }}>
         <div ref={mountRef} className="fixed inset-0 z-0" />
+
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center bg-polarNight0 bg-opacity-90 z-20">
-            <div className="text-snowStorm0 text-xl animate-pulse">Loading Earth...</div>
+            <div className="text-snowStorm0 text-xl animate-pulse">
+              Loading Earth...
+            </div>
           </div>
         )}
+
         <div className="relative z-10 flex flex-col items-center min-h-screen p-4 md:p-8 text-snowStorm0 overflow-y-auto">
           <Header userId={userId} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+
           <main className="w-full max-w-4xl space-y-12">
             <Routes>
-              <Route path="/" element={<HomePage setCurrentPage={setCurrentPage} SectionTitle={SectionTitle} nordColors={nordColors} />} />
+              {/* HomePage に SectionTitle と nordColors を props として渡す */}
+              <Route 
+                path="/" 
+                element={<HomePage 
+                            setCurrentPage={setCurrentPage} 
+                            SectionTitle={SectionTitle} 
+                            nordColors={nordColors} 
+                         />} 
+              />
+              {/* 他のページコンポーネントも同様に SectionTitle や nordColors が必要であれば渡す */}
               <Route path="/education" element={<EducationPage SectionTitle={SectionTitle} nordColors={nordColors} />} />
               <Route path="/experience" element={<ExperiencePage SectionTitle={SectionTitle} nordColors={nordColors} />} />
               <Route path="/awards" element={<AwardsPage SectionTitle={SectionTitle} nordColors={nordColors} />} />
               <Route path="/gallery" element={<GalleryPage SectionTitle={SectionTitle} nordColors={nordColors} />} />
             </Routes>
+
             <section className="bg-polarNight1 bg-opacity-70 p-6 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
-              <SectionTitle icon={Mail} title="Contact" iconColor={nordColors.frost1} titleColor={nordColors.frost2} />
+              <SectionTitle
+                icon={Mail}
+                title="Contact"
+                iconColor={nordColors.frost1}
+                titleColor={nordColors.frost2}
+              />
               <p className="text-lg leading-relaxed" style={{ color: nordColors.snowStorm0 }}>
                 Please feel free to reach out if you have any questions or are interested in collaboration.
               </p>
@@ -258,6 +305,7 @@ function App() {
               </p>
             </section>
           </main>
+
           <Footer />
         </div>
       </div>

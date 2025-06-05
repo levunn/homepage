@@ -7,7 +7,7 @@ import img2860 from '../assets/images/IMG_2860.jpg';
 import img3006 from '../assets/images/IMG_3006_.jpg';
 import img4517 from '../assets/images/IMG_4517.jpg';
 import img4652 from '../assets/images/IMG_4652.jpg';
-import img2625 from '../assets/images/IMG_2625.jpg';
+// import img2625 from '../assets/images/IMG_2625.jpg';
 import img2626 from '../assets/images/IMG_2626.jpg';
 import img4821 from '../assets/images/IMG_4821.jpg';
 import img1000021689 from '../assets/images/1000021689.jpg';
