@@ -45,13 +45,13 @@ function Header({ userId, currentPage, setCurrentPage }) {
         </a>
       </div>
 
-      <nav className="w-full max-w-4xl flex justify-around mb-12 p-4 bg-polarNight1 bg-opacity-70 rounded-xl shadow-lg border border-polarNight3 flex-wrap">
-        <NavLink to="/" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="home">Home</NavLink>
-        <NavLink to="/education" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="education">Education</NavLink>
-        <NavLink to="/experience" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="experience">Experience</NavLink>
-        <NavLink to="/awards" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="awards">Awards & Grants</NavLink>
-        <NavLink to="/gallery" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="gallery">Gallery</NavLink>
-      </nav>
+      <nav className="w-full max-w-4xl flex flex-col md:flex-row items-center justify-center space-y-2 md:space-y-0 md:space-x-6 mb-12 p-4 bg-polarNight1 bg-opacity-70 rounded-xl shadow-lg border border-polarNight3">
+      <NavLink to="/" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="home">Home</NavLink>
+      <NavLink to="/education" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="education">Education</NavLink>
+      <NavLink to="/experience" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="experience">Experience</NavLink>
+      <NavLink to="/awards" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="awards">Awards & Grants</NavLink>
+      <NavLink to="/gallery" currentPage={currentPage} setCurrentPage={setCurrentPage} pageName="gallery">Gallery</NavLink>
+    </nav>
     </header>
   );
 }
