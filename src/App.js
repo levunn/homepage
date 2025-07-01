@@ -2,7 +2,7 @@
 import React, { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { HashRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 
 // Import local texture assets
 import earthDayMap from './assets/textures/earth_atmos_2048.jpg';
@@ -230,7 +230,7 @@ function App() {
   }, []);
 
   return (
-    <Router>
+    // <Router>
       <div className="relative min-h-screen font-inter overflow-hidden" style={{ backgroundColor: nordColors.polarNight0 }}>
         <div ref={mountRef} className="fixed inset-0 z-0" />
         {loading && (
@@ -261,7 +261,7 @@ function App() {
           <Footer />
         </div>
       </div>
-    </Router>
+    // </Router>
   );
 }
 

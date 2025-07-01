@@ -1,5 +1,5 @@
 // src/pages/GalleryPage.js
-import React from 'react';
+import React, { useEffect, useRef } from 'react'; // useRefとuseEffectをインポート
 
 // 画像のインポート
 // 画像のパスは、実際に画像を配置した場所に合わせて調整してください。
@@ -119,22 +119,44 @@ function GalleryPage() {
       </p>
       <div className="grid grid-cols-1 gap-8">
         {earthPanoramas.map(panorama => (
-          <div key={panorama.id} className="bg-polarNight2 p-5 rounded-lg border border-polarNight3 hover:border-frost0 transition-all duration-200">
-            {/* ここで画像の高さを指定し、object-coverで画像をフィットさせます */}
-            <img src={panorama.src} alt={panorama.alt} className="w-full h-64 rounded-md mb-4 object-cover" />
-            <h3 className="text-xl font-semibold mb-2" style={{ color: nordColors.snowStorm2 }}>
-              {panorama.location}
-            </h3>
-            <p className="text-base" style={{ color: nordColors.snowStorm1 }}>
-              Time: {panorama.time}
-            </p>
-            <p className="text-base mt-2" style={{ color: nordColors.snowStorm0 }}>
-              {panorama.description}
-            </p>
-          </div>
+          <PanoramaCard key={panorama.id} panorama={panorama} /> // PanoramaCardコンポーネントを使用
         ))}
       </div>
     </section>
+  );
+}
+
+// 新しいPanoramaCardコンポーネントを定義
+function PanoramaCard({ panorama }) {
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    // コンポーネントがマウントされたとき、および依存配列が変更されたときに実行
+    if (scrollRef.current) {
+      // 画像の幅とコンテナの幅に基づいて中央にスクロール
+      const imageWidth = scrollRef.current.scrollWidth;
+      const containerWidth = scrollRef.current.clientWidth;
+      scrollRef.current.scrollLeft = (imageWidth - containerWidth) / 2;
+    }
+  }, [panorama.src]); // panorama.srcが変更されたときに再実行
+
+  return (
+    <div className="bg-polarNight2 p-5 rounded-lg border border-polarNight3 hover:border-frost0 transition-all duration-200">
+      {/* モバイル版のみスクロールを有効にするためのクラスを追加 */}
+      {/* scrollbar-hideはカスタムCSSで定義する必要があるか、Tailwindのプラグインが必要です */}
+      <div ref={scrollRef} className="overflow-x-auto whitespace-nowrap lg:overflow-x-hidden lg:whitespace-normal scrollbar-hide">
+        <img src={panorama.src} alt={panorama.alt} className="h-64 inline-block rounded-md mb-4 object-cover" style={{ width: 'auto', maxWidth: 'none' }} />
+      </div>
+      <h3 className="text-xl font-semibold mb-2" style={{ color: nordColors.snowStorm2 }}>
+        {panorama.location}
+      </h3>
+      <p className="text-base" style={{ color: nordColors.snowStorm1 }}>
+        Time: {panorama.time}
+      </p>
+      <p className="text-base mt-2" style={{ color: nordColors.snowStorm0 }}>
+        {panorama.description}
+      </p>
+    </div>
   );
 }
 

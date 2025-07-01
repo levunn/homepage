@@ -1,7 +1,7 @@
 // src/pages/ExperiencePage.js
 import React from 'react';
 import {
-  Briefcase, // Experience用
+  Briefcase,
 } from 'lucide-react';
 
 const nordColors = {
@@ -12,11 +12,9 @@ const nordColors = {
   snowStorm2: '#ECEFF4',
   frost1: '#88C0D0',
   frost2: '#81A1C1',
-  auroraOrange: '#D08770', // auroraOrange を追加
+  auroraOrange: '#D08770',
 };
 
-
-// Helper component for section titles with icons
 function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
   return (
     <div className="flex items-center mb-4">
@@ -28,7 +26,6 @@ function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
   );
 }
 
-// Define experience data
 const experiences = [
   {
     id: 1,
@@ -87,29 +84,27 @@ function ExperiencePage() {
       <SectionTitle
         icon={Briefcase}
         title="Work Experience"
-        iconColor={nordColors.frost1} // Corrected to use auroraOrange
+        iconColor={nordColors.frost1}
         titleColor={nordColors.frost2}
       />
-      <ul className="list-none space-y-6"> {/* list-none to remove default bullets, space-y for vertical spacing */}
+      <ul className="list-none space-y-6">
         {experiences.map((exp) => (
-          <li key={exp.id} className="flex items-start"> {/* Align custom dot and content */}
-            {/* Custom dot */}
+          <li key={exp.id} className="flex items-start">
             <div
-              className="w-3 h-3 rounded-full mr-4 mt-2 flex-shrink-0" // Adjusted margin for better alignment
-              style={{ backgroundColor: nordColors.frost2 }} // Dot color
+              className="w-3 h-3 rounded-full mr-4 mt-2 flex-shrink-0"
+              style={{ backgroundColor: nordColors.frost2 }}
             ></div>
-            {/* Experience details container */}
             <div className="flex flex-col flex-grow">
               <h3 className="text-2xl font-semibold" style={{ color: nordColors.snowStorm2 }}>
                 {exp.company}
               </h3>
-              <p className="text-lg mt-0.5" style={{ color: nordColors.snowStorm1 }}> {/* Adjusted margin */}
+              <p className="text-lg mt-0.5" style={{ color: nordColors.snowStorm1 }}>
                 {exp.role}
               </p>
               <p className="text-md mt-1" style={{ color: nordColors.snowStorm0 }}>
                 {exp.period}
               </p>
-              <ul className="list-disc list-inside text-base mt-2 space-y-1 pl-1" style={{ color: nordColors.snowStorm0 }}>
+              <ul className="list-disc list-inside text-[18px] sm:text-lg mt-2 space-y-1 pl-1" style={{ color: nordColors.snowStorm0 }}>
                 {exp.details.map((detail, index) => (
                   <li key={index}>{detail}</li>
                 ))}
