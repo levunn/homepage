@@ -1,5 +1,5 @@
 // src/pages/GalleryPage.js
-import React, { useEffect, useRef } from 'react'; // useRefとuseEffectをインポート
+import React, { useEffect, useRef, useState } from 'react'; // useStateをインポートに追加
 
 // 画像のインポート
 // 画像のパスは、実際に画像を配置した場所に合わせて調整してください。
@@ -126,26 +126,52 @@ function GalleryPage() {
   );
 }
 
+
 // 新しいPanoramaCardコンポーネントを定義
 function PanoramaCard({ panorama }) {
   const scrollRef = useRef(null);
+  const [imageLoaded, setImageLoaded] = useState(false); // 画像のロード状態を管理するstateを追加
 
   useEffect(() => {
     // コンポーネントがマウントされたとき、および依存配列が変更されたときに実行
-    if (scrollRef.current) {
-      // 画像の幅とコンテナの幅に基づいて中央にスクロール
-      const imageWidth = scrollRef.current.scrollWidth;
-      const containerWidth = scrollRef.current.clientWidth;
-      scrollRef.current.scrollLeft = (imageWidth - containerWidth) / 2;
+    // imageLoadedがtrueになってから処理を実行することで、画像が完全にロードされたことを保証
+    if (scrollRef.current && imageLoaded) {
+      const imageElement = scrollRef.current.querySelector('img'); // img要素を取得
+      if (imageElement) {
+        // 画像の実際の幅とコンテナの表示幅に基づいて中央にスクロール
+        const imageWidth = imageElement.scrollWidth; // img要素の幅を取得
+        const containerWidth = scrollRef.current.clientWidth; // コンテナの表示幅を取得
+
+        // 画像がコンテナより大きい場合にのみスクロールを適用
+        if (imageWidth > containerWidth) {
+          scrollRef.current.scrollLeft = (imageWidth - containerWidth) / 2;
+        } else {
+          // 画像がコンテナに収まる場合は、Flexboxで中央寄せする
+          scrollRef.current.style.justifyContent = 'center';
+          scrollRef.current.style.display = 'flex';
+        }
+      }
     }
-  }, [panorama.src]); // panorama.srcが変更されたときに再実行
+  }, [imageLoaded, panorama.src]); // imageLoadedとpanorama.srcが変更されたときに再実行
+
+  // 画像がロードされたときに呼び出されるハンドラー
+  const handleImageLoad = () => {
+    setImageLoaded(true); // 画像のロードが完了したことをマーク
+  };
 
   return (
     <div className="bg-polarNight2 p-5 rounded-lg border border-polarNight3 hover:border-frost0 transition-all duration-200">
-      {/* モバイル版のみスクロールを有効にするためのクラスを追加 */}
-      {/* scrollbar-hideはカスタムCSSで定義する必要があるか、Tailwindのプラグインが必要です */}
-      <div ref={scrollRef} className="overflow-x-auto whitespace-nowrap lg:overflow-x-hidden lg:whitespace-normal scrollbar-hide">
-        <img src={panorama.src} alt={panorama.alt} className="h-64 inline-block rounded-md mb-4 object-cover" style={{ width: 'auto', maxWidth: 'none' }} />
+      <div
+        ref={scrollRef}
+        className="overflow-x-auto whitespace-nowrap lg:overflow-x-hidden lg:whitespace-normal scrollbar-hide"
+      >
+        <img
+          src={panorama.src}
+          alt={panorama.alt}
+          className="h-64 inline-block rounded-md mb-4 object-cover"
+          style={{ width: 'auto', maxWidth: 'none' }}
+          onLoad={handleImageLoad} // 画像ロード時にhandleImageLoadを実行
+        />
       </div>
       <h3 className="text-xl font-semibold mb-2" style={{ color: nordColors.snowStorm2 }}>
         {panorama.location}
