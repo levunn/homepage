@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/homepage/static/css/main.41e2085a.css",
-    "main.js": "/homepage/static/js/main.0f422b11.js",
+    "main.js": "/homepage/static/js/main.c071de27.js",
     "static/media/1000021689.jpg": "/homepage/static/media/1000021689.99e95cc06a4191e374ce.jpg",
     "static/media/IMG_2626.jpg": "/homepage/static/media/IMG_2626.58fb43d75d6eed774ef3.jpg",
     "static/media/IMG_4517.jpg": "/homepage/static/media/IMG_4517.ec9d2770c1a37f5c646f.jpg",
@@ -18,10 +18,10 @@
     "static/media/utokyo_logo.png": "/homepage/static/media/utokyo_logo.9e7144f7fdda76a52a35.png",
     "index.html": "/homepage/index.html",
     "main.41e2085a.css.map": "/homepage/static/css/main.41e2085a.css.map",
-    "main.0f422b11.js.map": "/homepage/static/js/main.0f422b11.js.map"
+    "main.c071de27.js.map": "/homepage/static/js/main.c071de27.js.map"
   },
   "entrypoints": [
     "static/css/main.41e2085a.css",
-    "static/js/main.0f422b11.js"
+    "static/js/main.c071de27.js"
   ]
 }
