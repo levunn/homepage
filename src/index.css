@@ -1,3 +1,5 @@
+/* src/index.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,3 +13,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* --- ここから追加 --- */
+
+/* Webkit ブラウザ (Chrome, Safariなど) 用のスクロールバー非表示 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* IE, Edge, Firefox 用のスクロールバー非表示 */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE および Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* --- ここまで追加 --- */
