@@ -111,7 +111,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
 
   return (
     // ここに max-w-4xl と mx-auto を適用するラッパーdivを追加
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8"> {/* 適切な最大幅と中央揃え、パディングを追加 */}
+    // モバイル版の左右のパディングをさらに減らすために px-2 を px-0 に変更し、sm:px-6 を追加
+    <div className="max-w-4xl mx-auto px-0 sm:px-6 lg:px-8 space-y-8"> {/* 適切な最大幅と中央揃え、パディングを追加 */}
       {/* About Me Section */}
       <section className="bg-polarNight1 bg-opacity-70 p-6 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
         <SectionTitle
@@ -150,57 +151,57 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           {/* 各リストアイテム内の説明文に max-w-prose と text-justify を適用 */}
           <li className="leading-relaxed"> {/* 各リストアイテムに行高を設定 */}
             <strong>Wildfire Prediction & Monitoring:</strong> <strong style={{ color: nordColors.auroraOrange }}> Active Project 🔥</strong>
-            {/* モバイル版のテキストサイズを text-sm に変更し、md:text-base で中画面以上で大きくする */}
-            <div className="ml-6 text-sm md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
+            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Researching and developing advanced computer vision techniques for the early detection, tracking, and behavior prediction of wildfires. Utilizing satellite imagery, aerial data, and ground-based sensors to create robust and efficient monitoring systems. 
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Dataset Pruning for Object Detection:</strong>
-            {/* モバイル版のテキストサイズを text-sm に変更し、md:text-base で中画面以上で大きくする */}
-            <div className="ml-6 text-sm md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
+            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Extended Dataset Pruning techniques beyond image classification to object detection. Applied traditional pruning metrics to object detection and obtained preliminary results demonstrating their applicability. Identified strong correlations between pruned dataset's accuracy and factors such as class distribution difference and the number of annotations.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Dataset Distillation with Diffusion Model:</strong>
-            {/* モバイル版のテキストサイズを text-sm に変更し、md:text-base で中画面以上で大きくする */}
-            <div className="ml-6 text-sm md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
+            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Explored Dataset Distillation using a generative approach with Stable Diffusion to approximate the data distribution using a small set of optimized synthetic images. Successfully represented class-wise prototypes by approximating the latent variables of the diffusion model with a Variational Autoencoder (VAE). Introduced a scaling parameter to control VAE latent variables, enhancing intra-class diversity in generated images. Found that the low accuracy of the teacher model used to generate soft labels supports the performance of the student model when distilled dataset size is small.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Radiology Report Generation Model (JRadiEvo):</strong>
-            {/* モバイル版のテキストサイズを text-sm に変更し、md:text-base で中画面以上で大きくする */}
-            <div className="ml-6 text-sm md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
+            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Proposed JRadiEvo, a Japanese radiology report generation model adapting non-medical VLMs to the medical domain with only 50 samples. Achieved superior performance over CheXagent under few-shot settings. Designed a lightweight 800M-parameter model suitable for local deployment, ensuring privacy compliance.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Cross-View Geo-Localization:</strong>
-            {/* モバイル版のテキストサイズを text-sm に変更し、md:text-base で中画面以上で大きくする */}
-            <div className="ml-6 text-sm md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
+            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Developed a lightweight CNN for localizing ground images using aerial views, and created a synthetic UAV dataset in a virtual environment to validate a novel loss function.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Hyperspectral HISUI Data Analysis Project:</strong>
-            {/* モバイル版のテキストサイズを text-sm に変更し、md:text-base で中画面以上で大きくする */}
-            <div className="ml-6 text-sm md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
+            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Simulated CO2 properties using MODTRAN and surveyed methods for using hyperspectral data from HISUI for Canopy Nitrogen Contents (CNC).
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Simulation of Visual Navigation for UAVs:</strong>
-            {/* モバイル版のテキストサイズを text-sm に変更し、md:text-base で中画面以上で大きくする */}
-            <div className="ml-6 text-sm md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
+            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Researched simulation of visual navigation for UAVs using reinforcement learning, proposing rewards for better accuracy.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Satellite Image Analysis (R&D Engineer):</strong>
-            {/* モバイル版のテキストサイズを text-sm に変更し、md:text-base で中画面以上で大きくする */}
-            <div className="ml-6 text-sm md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
+            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Implemented a random forest algorithm for land classification using Google Earth Engine, outperforming the standard method, Dynamic World.
             </div>
           </li>
