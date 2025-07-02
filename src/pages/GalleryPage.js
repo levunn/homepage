@@ -39,6 +39,15 @@ function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
 }
 // Earth panorama images
 const earthPanoramas = [
+  
+  {
+    id: 10,
+    src: require('../assets/images/IMG_5303.jpg'),
+    alt: 'Chicago Skyline and Lake Michigan',
+    location: 'Lakefront Trail, Chicago, Illinois, USA',
+    time: 'June, 2024',
+    description: 'A panoramic view of the Chicago skyline seen across the vibrant waters of Lake Michigan, framed by green parks and urban walkways.'
+  },
   {
     id: 8,
     src: img4821,
@@ -103,6 +112,14 @@ const earthPanoramas = [
     time: 'July, 2024', // 推測される時期 (登山シーズン)
     description: 'A panoramic view of the crater rim of Mount Fuji, Japan\'s iconic highest peak.'
   },
+  {
+  id: 9,
+  src: require('../assets/images/IMG_0480.jpg'),
+  alt: 'Mount Batur and Lake Batur, Bali',
+  location: 'Mount Batur Viewpoint, Kintamani, Bali, Indonesia',
+  time: 'June, 2024',
+  description: 'A sweeping view of the volcanic Mount Batur and the serene Lake Batur, captured from a popular panoramic lookout surrounded by cafes and tourists.'
+}
 ];
 
 function GalleryPage() {
