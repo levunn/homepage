@@ -1,16 +1,17 @@
 // src/pages/GalleryPage.js
 import React, { useEffect, useRef, useState } from 'react'; // useStateをインポートに追加
 
-// 画像のインポート
-// 画像のパスは、実際に画像を配置した場所に合わせて調整してください。
+// 画像のインポートを整理
 import img2860 from '../assets/images/IMG_2860.jpg';
 import img3006 from '../assets/images/IMG_3006_.jpg';
 import img4517 from '../assets/images/IMG_4517.jpg';
 import img4652 from '../assets/images/IMG_4652.jpg';
-// import img2625 from '../assets/images/IMG_2625.jpg';
 import img2626 from '../assets/images/IMG_2626.jpg';
 import img4821 from '../assets/images/IMG_4821.jpg';
 import img1000021689 from '../assets/images/1000021689.jpg';
+import img5303 from '../assets/images/IMG_5303.jpg'; // 新しく追加された画像
+import img0480 from '../assets/images/IMG_0480.jpg'; // 新しく追加された画像
+
 import {
   Globe // Globeアイコンをインポート
 } from 'lucide-react';
@@ -26,6 +27,7 @@ const nordColors = {
   frost1: '#88C0D0',
   frost2: '#81A1C1',
 };
+
 // Helper component for section titles with icons (ExperiencePage.jsからコピー)
 function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
   return (
@@ -37,19 +39,19 @@ function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
     </div>
   );
 }
+
 // Earth panorama images
 const earthPanoramas = [
-  
   {
-    id: 10,
-    src: require('../assets/images/IMG_5303.jpg'),
+    id: 1, // idを元の順序で振り直し
+    src: img5303,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
     description: 'A panoramic view of the Chicago skyline seen across the vibrant waters of Lake Michigan, framed by green parks and urban walkways.'
   },
   {
-    id: 8,
+    id: 2, // idを元の順序で振り直し
     src: img4821,
     alt: 'Lake Louise, Banff National Park',
     location: 'Lake Louise, Banff National Park, Alberta, Canada',
@@ -57,7 +59,7 @@ const earthPanoramas = [
     description: 'A panoramic view of the turquoise Lake Louise, surrounded by snow-capped peaks, glaciers, and dense pine forests in Banff National Park.'
   },
   {
-    id: 2,
+    id: 3, // idを元の順序で振り直し
     src: img4652,
     alt: 'Bow Lake, Banff National Park',
     location: 'Bow Lake, Banff National Park, Alberta, Canada',
@@ -65,7 +67,7 @@ const earthPanoramas = [
     description: 'A panoramic view of the partially frozen Bow Lake, nestled amidst snow-capped mountains in Banff National Park.'
   },
   {
-    id: 3,
+    id: 4, // idを元の順序で振り直し
     src: img4517,
     alt: 'Lake Tahoe, Monkey Rock',
     location: 'Monkey Rock, Lake Tahoe, California',
@@ -73,7 +75,7 @@ const earthPanoramas = [
     description: 'A breathtaking panorama of the clear blue waters of Lake Tahoe from the Monkey Rock Trailhead.'
   },
   {
-    id: 4,
+    id: 5, // idを元の順序で振り直し
     src: img2860,
     alt: 'Bryce Canyon National Park',
     location: 'Bryce Canyon National Park, Utah, USA',
@@ -81,7 +83,7 @@ const earthPanoramas = [
     description: 'A stunning winter panorama of Bryce Canyon, featuring snow-dusted hoodoos under a clear blue sky.'
   },  
   {
-    id: 1,
+    id: 6, // idを元の順序で振り直し
     src: img3006,
     alt: 'Antelope Canyon',
     location: 'Antelope Canyon, Arizona, USA',
@@ -89,23 +91,15 @@ const earthPanoramas = [
     description: 'The iconic slot canyon with its mesmerizing, wave-like rock formations and beams of light.'
   },
   {
-    id: 5,
+    id: 7, // idを元の順序で振り直し
     src: img2626,
     alt: 'Nevada Desert Panorama',
     location: 'Red Rock Canyon Area, Nevada, USA',
     time: 'November, 2024', // 推測される時期
     description: 'A wide view of the Nevada desert landscape, characterized by rugged mountains and sparse vegetation under a bright sun.'
   },
-//   {
-//     id: 6,
-//     src: img2625,
-//     alt: 'Red Rock Canyon National Conservation Area',
-//     location: 'Red Rock Canyon National Conservation Area, Nevada, USA',
-//     time: 'Spring/Autumn', // 推測される時期
-//     description: 'An expansive panorama of the Red Rock Canyon with its distinctive red sandstone formations and desert flora.'
-//   },
   {
-    id: 7,
+    id: 8, // idを元の順序で振り直し
     src: img1000021689,
     alt: 'Mount Fuji Crater',
     location: 'Mount Fuji, Kengamine Peak, Japan',
@@ -113,13 +107,13 @@ const earthPanoramas = [
     description: 'A panoramic view of the crater rim of Mount Fuji, Japan\'s iconic highest peak.'
   },
   {
-  id: 9,
-  src: require('../assets/images/IMG_0480.jpg'),
-  alt: 'Mount Batur and Lake Batur, Bali',
-  location: 'Mount Batur Viewpoint, Kintamani, Bali, Indonesia',
-  time: 'June, 2024',
-  description: 'A sweeping view of the volcanic Mount Batur and the serene Lake Batur, captured from a popular panoramic lookout surrounded by cafes and tourists.'
-}
+    id: 9, // idを元の順序で振り直し
+    src: img0480,
+    alt: 'Mount Batur and Lake Batur, Bali',
+    location: 'Mount Batur Viewpoint, Kintamani, Bali, Indonesia',
+    time: 'June, 2024',
+    description: 'A sweeping view of the volcanic Mount Batur and the serene Lake Batur, captured from a popular panoramic lookout surrounded by cafes and tourists.'
+  }
 ];
 
 function GalleryPage() {
