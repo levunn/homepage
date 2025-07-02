@@ -129,7 +129,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           />
         </div>
         {/* max-w-prose と text-justify を追加してテキストの行長を最適化し、両端揃えにする */}
-        <p className="text-lg leading-relaxed max-w-prose mx-auto text-justify" style={{ color: nordColors.snowStorm0 }}>
+        {/* モバイル版のテキストサイズを text-base に変更し、md:text-lg で中画面以上で大きくする */}
+        <p className="text-base md:text-lg leading-relaxed max-w-prose mx-auto text-justify" style={{ color: nordColors.snowStorm0 }}>
           I am a Ph.D. student in Computer Science and Engineering at the University of Nevada, Reno, maintaining a 4.0/4.0 GPA. My research centers on wildfire monitoring and prediction, leveraging physics-based deep learning and computer vision techniques.
           I hold both a Master’s and Bachelor’s degree in Aeronautics and Astronautics from the University of Tokyo, where I developed a strong foundation in remote sensing and data analysis.
           For more details on my academic journey, please visit the <span className="underline cursor-pointer" style={{ color: nordColors.auroraGreen }} onClick={() => handleNavigate('/education', 'education')}>Education</span> page, and for my professional experiences, check the <span className="underline cursor-pointer" style={{ color: nordColors.auroraGreen }} onClick={() => handleNavigate('/experience', 'experience')}>Experience</span> page.
@@ -144,53 +145,62 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           iconColor={nordColors.frost1}
           titleColor={nordColors.frost2}
         />
-        <ul className="list-disc list-inside text-lg space-y-3" style={{ color: nordColors.snowStorm0 }}>
+        {/* モバイル版のリストアイテムのテキストサイズを text-base に変更し、md:text-lg で中画面以上で大きくする */}
+        <ul className="list-disc list-inside text-base md:text-lg space-y-3" style={{ color: nordColors.snowStorm0 }}>
           {/* 各リストアイテム内の説明文に max-w-prose と text-justify を適用 */}
           <li className="leading-relaxed"> {/* 各リストアイテムに行高を設定 */}
             <strong>Wildfire Prediction & Monitoring:</strong> <strong style={{ color: nordColors.auroraOrange }}> Active Project 🔥</strong>
-            <div className="ml-6 max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のテキストサイズを text-base に変更し、md:text-base で中画面以上で大きくする */}
+            <div className="ml-6 text-base md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Researching and developing advanced computer vision techniques for the early detection, tracking, and behavior prediction of wildfires. Utilizing satellite imagery, aerial data, and ground-based sensors to create robust and efficient monitoring systems. 
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Dataset Pruning for Object Detection:</strong>
-            <div className="ml-6 max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のテキストサイズを text-base に変更し、md:text-base で中画面以上で大きくする */}
+            <div className="ml-6 text-base md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Extended Dataset Pruning techniques beyond image classification to object detection. Applied traditional pruning metrics to object detection and obtained preliminary results demonstrating their applicability. Identified strong correlations between pruned dataset's accuracy and factors such as class distribution difference and the number of annotations.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Dataset Distillation with Diffusion Model:</strong>
-            <div className="ml-6 max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のテキストサイズを text-base に変更し、md:text-base で中画面以上で大きくする */}
+            <div className="ml-6 text-base md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Explored Dataset Distillation using a generative approach with Stable Diffusion to approximate the data distribution using a small set of optimized synthetic images. Successfully represented class-wise prototypes by approximating the latent variables of the diffusion model with a Variational Autoencoder (VAE). Introduced a scaling parameter to control VAE latent variables, enhancing intra-class diversity in generated images. Found that the low accuracy of the teacher model used to generate soft labels supports the performance of the student model when distilled dataset size is small.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Radiology Report Generation Model (JRadiEvo):</strong>
-            <div className="ml-6 max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のテキストサイズを text-base に変更し、md:text-base で中画面以上で大きくする */}
+            <div className="ml-6 text-base md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Proposed JRadiEvo, a Japanese radiology report generation model adapting non-medical VLMs to the medical domain with only 50 samples. Achieved superior performance over CheXagent under few-shot settings. Designed a lightweight 800M-parameter model suitable for local deployment, ensuring privacy compliance.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Cross-View Geo-Localization:</strong>
-            <div className="ml-6 max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のテキストサイズを text-base に変更し、md:text-base で中画面以上で大きくする */}
+            <div className="ml-6 text-base md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Developed a lightweight CNN for localizing ground images using aerial views, and created a synthetic UAV dataset in a virtual environment to validate a novel loss function.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Hyperspectral HISUI Data Analysis Project:</strong>
-            <div className="ml-6 max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のテキストサイズを text-base に変更し、md:text-base で中画面以上で大きくする */}
+            <div className="ml-6 text-base md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Simulated CO2 properties using MODTRAN and surveyed methods for using hyperspectral data from HISUI for Canopy Nitrogen Contents (CNC).
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Simulation of Visual Navigation for UAVs:</strong>
-            <div className="ml-6 max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のテキストサイズを text-base に変更し、md:text-base で中画面以上で大きくする */}
+            <div className="ml-6 text-base md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Researched simulation of visual navigation for UAVs using reinforcement learning, proposing rewards for better accuracy.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Satellite Image Analysis (R&D Engineer):</strong>
-            <div className="ml-6 max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版のテキストサイズを text-base に変更し、md:text-base で中画面以上で大きくする */}
+            <div className="ml-6 text-base md:text-base max-w-prose text-justify"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Implemented a random forest algorithm for land classification using Google Earth Engine, outperforming the standard method, Dynamic World.
             </div>
           </li>
@@ -206,8 +216,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           iconColor={nordColors.frost1}
           titleColor={nordColors.frost2}
         />
-        {/* max-w-prose と text-justify を追加 */}
-        <p className="mt-4 text-lg max-w-prose mx-auto text-justify" style={{ color: nordColors.snowStorm0 }}>
+        {/* モバイル版のテキストサイズを text-base に変更し、md:text-lg で中画面以上で大きくする */}
+        <p className="mt-4 text-base md:text-lg max-w-prose mx-auto text-justify" style={{ color: nordColors.snowStorm0 }}>
           For a complete list, please visit my <a href="https://scholar.google.com/citations?user=MygjhWsAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="underline hover:text-frost1 transition-colors duration-200" style={{ color: nordColors.auroraGreen }}>Google Scholar profile</a>.
         </p>
 
@@ -296,7 +306,7 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
                 International Historic Car Rally Project
               </a>
             </h3>
-            {/* max-w-prose と text-justify を追加 */}
+            {/* max-w-prose と text-justify はそのまま */}
             <p className="text-base max-w-prose text-justify" style={{ color: nordColors.snowStorm1 }}>
               Managed PR and Logistics, secured over $20,000 in sponsorship, and developed the project website with nearly 50 articles on project status. Created a system to manage over 1,000 parts.
             </p>
@@ -307,7 +317,7 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
                 Matsushita Lab Technical Staff
               </a>
             </h3>
-            {/* max-w-prose と text-justify を追加 */}
+            {/* max-w-prose と text-justify はそのまま */}
             <p className="text-base max-w-prose text-justify" style={{ color: nordColors.snowStorm1 }}>
               Worked on website updates and content editing, and developed software content for an online test for Japanese language acquisition.
             </p>
@@ -323,7 +333,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           iconColor={nordColors.frost1}
           titleColor={nordColors.frost2}
         />
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-lg" style={{ color: nordColors.snowStorm0 }}>
+        {/* モバイル版のテキストサイズを text-base に変更し、md:text-lg で中画面以上で大きくする */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-base md:text-lg" style={{ color: nordColors.snowStorm0 }}>
           {/* スキルリストは短いため、max-w-prose と text-justify は不要 */}
           <div>
             <h3 className="font-semibold mb-2" style={{ color: nordColors.frost1 }}>Programming</h3>
