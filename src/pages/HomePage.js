@@ -132,7 +132,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
         {/* max-w-prose と text-justify を追加してテキストの行長を最適化し、両端揃えにする */}
         {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
         {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-        <p className="text-base md:text-lg leading-relaxed text-justify mx-auto max-w-none sm:max-w-prose break-words sm:normal-words" style={{ color: nordColors.snowStorm0 }}>
+        <p className="text-base md:text-lg leading-relaxed text-justify mx-auto max-w-none sm:max-w-prose break-words sm:normal-words"
+           style={{ color: nordColors.snowStorm0, hyphens: 'auto', WebkitHyphens: 'auto' }}>
           I am a Ph.D. student in Computer Science and Engineering at the University of Nevada, Reno, maintaining a 4.0/4.0 GPA. My research centers on wildfire monitoring and prediction, leveraging physics-based deep learning and computer vision techniques.
           I hold both a Master’s and Bachelor’s degree in Aeronautics and Astronautics from the University of Tokyo, where I developed a strong foundation in remote sensing and data analysis.
           For more details on my academic journey, please visit the <span className="underline cursor-pointer" style={{ color: nordColors.auroraGreen }} onClick={() => handleNavigate('/education', 'education')}>Education</span> page, and for my professional experiences, check the <span className="underline cursor-pointer" style={{ color: nordColors.auroraGreen }} onClick={() => handleNavigate('/experience', 'experience')}>Experience</span> page.
@@ -156,7 +157,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
             {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"
+                 style={{ hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Researching and developing advanced computer vision techniques for the early detection, tracking, and behavior prediction of wildfires. Utilizing satellite imagery, aerial data, and ground-based sensors to create robust and efficient monitoring systems. 
             </div>
           </li>
@@ -165,7 +167,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
             {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"
+                 style={{ hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Extended Dataset Pruning techniques beyond image classification to object detection. Applied traditional pruning metrics to object detection and obtained preliminary results demonstrating their applicability. Identified strong correlations between pruned dataset's accuracy and factors such as class distribution difference and the number of annotations.
             </div>
           </li>
@@ -174,7 +177,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
             {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"
+                 style={{ hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Explored Dataset Distillation using a generative approach with Stable Diffusion to approximate the data distribution using a small set of optimized synthetic images. Successfully represented class-wise prototypes by approximating the latent variables of the diffusion model with a Variational Autoencoder (VAE). Introduced a scaling parameter to control VAE latent variables, enhancing intra-class diversity in generated images. Found that the low accuracy of the teacher model used to generate soft labels supports the performance of the student model when distilled dataset size is small.
             </div>
           </li>
@@ -183,7 +187,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
             {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"
+                 style={{ hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Proposed JRadiEvo, a Japanese radiology report generation model adapting non-medical VLMs to the medical domain with only 50 samples. Achieved superior performance over CheXagent under few-shot settings. Designed a lightweight 800M-parameter model suitable for local deployment, ensuring privacy compliance.
             </div>
           </li>
@@ -192,7 +197,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
             {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"
+                 style={{ hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Developed a lightweight CNN for localizing ground images using aerial views, and created a synthetic UAV dataset in a virtual environment to validate a novel loss function.
             </div>
           </li>
@@ -201,7 +207,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
             {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"
+                 style={{ hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Simulated CO2 properties using MODTRAN and surveyed methods for using hyperspectral data from HISUI for Canopy Nitrogen Contents (CNC).
             </div>
           </li>
@@ -210,7 +217,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
             {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"
+                 style={{ hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Researched simulation of visual navigation for UAVs using reinforcement learning, proposing rewards for better accuracy.
             </div>
           </li>
@@ -219,7 +227,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
             {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"
+                 style={{ hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Implemented a random forest algorithm for land classification using Google Earth Engine, outperforming the standard method, Dynamic World.
             </div>
           </li>
@@ -239,7 +248,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
         {/* モバイル版のテキストサイズを text-base に変更し、md:text-lg で中画面以上で大きくする */}
         {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
         {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-        <p className="mt-4 text-base md:text-lg text-justify mx-auto max-w-none sm:max-w-prose break-words sm:normal-words" style={{ color: nordColors.snowStorm0 }}>
+        <p className="mt-4 text-base md:text-lg text-justify mx-auto max-w-none sm:max-w-prose break-words sm:normal-words"
+           style={{ color: nordColors.snowStorm0, hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
           For a complete list, please visit my <a href="https://scholar.google.com/citations?user=MygjhWsAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="underline hover:text-frost1 transition-colors duration-200" style={{ color: nordColors.auroraGreen }}>Google Scholar profile</a>.
         </p>
 
@@ -330,7 +340,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
               </a>
             </h3>
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <p className="text-base max-w-prose text-justify break-words sm:normal-words" style={{ color: nordColors.snowStorm1 }}>
+            <p className="text-base max-w-prose text-justify break-words sm:normal-words"
+               style={{ color: nordColors.snowStorm1, hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Managed PR and Logistics, secured over $20,000 in sponsorship, and developed the project website with nearly 50 articles on project status. Created a system to manage over 1,000 parts.
             </p>
           </div>
@@ -341,7 +352,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
               </a>
             </h3>
             {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
-            <p className="text-base max-w-prose text-justify break-words sm:normal-words" style={{ color: nordColors.snowStorm1 }}>
+            <p className="text-base max-w-prose text-justify break-words sm:normal-words"
+               style={{ color: nordColors.snowStorm1, hyphens: 'auto', WebkitHyphens: 'auto' }}> {/* hyphens プロパティを追加 */}
               Worked on website updates and content editing, and developed software content for an online test for Japanese language acquisition.
             </p>
           </div>

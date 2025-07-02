@@ -69,7 +69,8 @@ function EducationPage() {
       department: "Department of Computer Science and Engineering, Graduate School of Engineering",
       dates: "Aug. 2024 - Present",
       details: [
-        "Advisor: Prof. George Bebis, Co-Advisors: Prof. Hamed Ebrahimian, Prof. Dani Or",
+        "Advisor: Prof. George Bebis",
+        "Co-Advisors: Prof. Hamed Ebrahimian, Prof. Dani Or",
         "Focus: Wildfire monitoring, prediction using computer vision.",
         "Advisor: Prof. Ping Liu (Aug. 2024 - Apr. 2025)",
         "Focus: Efficient AI primarily focuses on optimizing datasets, such as through dataset distillation and pruning.",
