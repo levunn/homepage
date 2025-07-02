@@ -197,7 +197,7 @@ function PanoramaCard({ panorama }) {
         {panorama.location}
       </h3>
       <p className="text-base" style={{ color: nordColors.snowStorm1 }}>
-        Time: {panorama.time}
+        {panorama.time}
       </p>
       <p className="text-base mt-2" style={{ color: nordColors.snowStorm0 }}>
         {panorama.description}
