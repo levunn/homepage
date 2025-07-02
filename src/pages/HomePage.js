@@ -110,11 +110,11 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
   }
 
   return (
-    // ここに max-w-4xl と mx-auto を適用するラッパーdivを追加
-    // モバイル版の左右のパディングをさらに減らすために px-2 を px-0 に変更し、sm:px-6 を追加
-    <div className="max-w-4xl mx-auto px-0 sm:px-6 lg:px-8 space-y-8"> {/* 適切な最大幅と中央揃え、パディングを追加 */}
+    // 全体のラッパーdivの左右のパディングを px-0 から px-2 に戻し、sm:px-6 を維持
+    <div className="max-w-4xl mx-auto px-2 sm:px-6 lg:px-8 space-y-8"> {/* 適切な最大幅と中央揃え、パディングを追加 */}
       {/* About Me Section */}
-      <section className="bg-polarNight1 bg-opacity-70 p-6 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
+      {/* モバイル版のセクションのパディングを p-4 から p-5 に変更し、md:p-8 で中画面以上で大きくする */}
+      <section className="bg-polarNight1 bg-opacity-70 p-5 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
         <SectionTitle
           icon={User}
           title="About Me"
@@ -130,8 +130,9 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           />
         </div>
         {/* max-w-prose と text-justify を追加してテキストの行長を最適化し、両端揃えにする */}
-        {/* モバイル版のテキストサイズを text-base に変更し、md:text-lg で中画面以上で大きくする */}
-        <p className="text-base md:text-lg leading-relaxed max-w-prose mx-auto text-justify" style={{ color: nordColors.snowStorm0 }}>
+        {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+        {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+        <p className="text-base md:text-lg leading-relaxed text-justify mx-auto max-w-none sm:max-w-prose break-words sm:normal-words" style={{ color: nordColors.snowStorm0 }}>
           I am a Ph.D. student in Computer Science and Engineering at the University of Nevada, Reno, maintaining a 4.0/4.0 GPA. My research centers on wildfire monitoring and prediction, leveraging physics-based deep learning and computer vision techniques.
           I hold both a Master’s and Bachelor’s degree in Aeronautics and Astronautics from the University of Tokyo, where I developed a strong foundation in remote sensing and data analysis.
           For more details on my academic journey, please visit the <span className="underline cursor-pointer" style={{ color: nordColors.auroraGreen }} onClick={() => handleNavigate('/education', 'education')}>Education</span> page, and for my professional experiences, check the <span className="underline cursor-pointer" style={{ color: nordColors.auroraGreen }} onClick={() => handleNavigate('/experience', 'experience')}>Experience</span> page.
@@ -139,7 +140,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
       </section>
 
         {/* Research Projects Section */}
-      <section className="bg-polarNight1 bg-opacity-70 p-6 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
+      {/* モバイル版のセクションのパディングを p-4 から p-5 に変更し、md:p-8 で中画面以上で大きくする */}
+      <section className="bg-polarNight1 bg-opacity-70 p-5 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
         <SectionTitle
           icon={FlaskConical}
           title="Research Projects"
@@ -152,56 +154,72 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           <li className="leading-relaxed"> {/* 各リストアイテムに行高を設定 */}
             <strong>Wildfire Prediction & Monitoring:</strong> <strong style={{ color: nordColors.auroraOrange }}> Active Project 🔥</strong>
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
-            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Researching and developing advanced computer vision techniques for the early detection, tracking, and behavior prediction of wildfires. Utilizing satellite imagery, aerial data, and ground-based sensors to create robust and efficient monitoring systems. 
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Dataset Pruning for Object Detection:</strong>
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
-            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Extended Dataset Pruning techniques beyond image classification to object detection. Applied traditional pruning metrics to object detection and obtained preliminary results demonstrating their applicability. Identified strong correlations between pruned dataset's accuracy and factors such as class distribution difference and the number of annotations.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Dataset Distillation with Diffusion Model:</strong>
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
-            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Explored Dataset Distillation using a generative approach with Stable Diffusion to approximate the data distribution using a small set of optimized synthetic images. Successfully represented class-wise prototypes by approximating the latent variables of the diffusion model with a Variational Autoencoder (VAE). Introduced a scaling parameter to control VAE latent variables, enhancing intra-class diversity in generated images. Found that the low accuracy of the teacher model used to generate soft labels supports the performance of the student model when distilled dataset size is small.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Radiology Report Generation Model (JRadiEvo):</strong>
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
-            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Proposed JRadiEvo, a Japanese radiology report generation model adapting non-medical VLMs to the medical domain with only 50 samples. Achieved superior performance over CheXagent under few-shot settings. Designed a lightweight 800M-parameter model suitable for local deployment, ensuring privacy compliance.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Cross-View Geo-Localization:</strong>
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
-            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Developed a lightweight CNN for localizing ground images using aerial views, and created a synthetic UAV dataset in a virtual environment to validate a novel loss function.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Hyperspectral HISUI Data Analysis Project:</strong>
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
-            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Simulated CO2 properties using MODTRAN and surveyed methods for using hyperspectral data from HISUI for Canopy Nitrogen Contents (CNC).
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Simulation of Visual Navigation for UAVs:</strong>
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
-            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Researched simulation of visual navigation for UAVs using reinforcement learning, proposing rewards for better accuracy.
             </div>
           </li>
           <li className="leading-relaxed">
             <strong>Satellite Image Analysis (R&D Engineer):</strong>
             {/* モバイル版のインデントをなくすために ml-6 を sm:ml-6 に変更 */}
-            <div className="text-base md:text-base max-w-prose text-justify sm:ml-6"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
+            {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <div className="text-base md:text-base text-justify sm:ml-6 max-w-none sm:max-w-prose break-words sm:normal-words"> {/* max-w-prose と text-justify を追加、インデントを調整 */}
               Implemented a random forest algorithm for land classification using Google Earth Engine, outperforming the standard method, Dynamic World.
             </div>
           </li>
@@ -210,7 +228,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
 
 
       {/* Publications Section */}
-      <section className="bg-polarNight1 bg-opacity-70 p-6 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
+      {/* モバイル版のセクションのパディングを p-4 から p-5 に変更し、md:p-8 で中画面以上で大きくする */}
+      <section className="bg-polarNight1 bg-opacity-70 p-5 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
         <SectionTitle
           icon={FileText}
           title="Publications"
@@ -218,7 +237,9 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           titleColor={nordColors.frost2}
         />
         {/* モバイル版のテキストサイズを text-base に変更し、md:text-lg で中画面以上で大きくする */}
-        <p className="mt-4 text-base md:text-lg max-w-prose mx-auto text-justify" style={{ color: nordColors.snowStorm0 }}>
+        {/* モバイル版では max-w-none を適用し、sm:max-w-prose で中画面以上で制限をかける */}
+        {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+        <p className="mt-4 text-base md:text-lg text-justify mx-auto max-w-none sm:max-w-prose break-words sm:normal-words" style={{ color: nordColors.snowStorm0 }}>
           For a complete list, please visit my <a href="https://scholar.google.com/citations?user=MygjhWsAAAAJ&hl=en" target="_blank" rel="noopener noreferrer" className="underline hover:text-frost1 transition-colors duration-200" style={{ color: nordColors.auroraGreen }}>Google Scholar profile</a>.
         </p>
 
@@ -293,7 +314,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
       </section>
 
       {/* Past Extracurricular Projects Section */}
-      <section className="bg-polarNight1 bg-opacity-70 p-6 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
+      {/* モバイル版のセクションのパディングを p-4 から p-5 に変更し、md:p-8 で中画面以上で大きくする */}
+      <section className="bg-polarNight1 bg-opacity-70 p-5 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
         <SectionTitle
           icon={Shapes}
           title="Past Extracurricular Projects"
@@ -307,8 +329,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
                 International Historic Car Rally Project
               </a>
             </h3>
-            {/* max-w-prose と text-justify はそのまま */}
-            <p className="text-base max-w-prose text-justify" style={{ color: nordColors.snowStorm1 }}>
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <p className="text-base max-w-prose text-justify break-words sm:normal-words" style={{ color: nordColors.snowStorm1 }}>
               Managed PR and Logistics, secured over $20,000 in sponsorship, and developed the project website with nearly 50 articles on project status. Created a system to manage over 1,000 parts.
             </p>
           </div>
@@ -318,8 +340,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
                 Matsushita Lab Technical Staff
               </a>
             </h3>
-            {/* max-w-prose と text-justify はそのまま */}
-            <p className="text-base max-w-prose text-justify" style={{ color: nordColors.snowStorm1 }}>
+            {/* モバイル版で単語の途中で改行できるように break-words を追加し、sm:normal-words で中画面以上では通常の挙動に戻す */}
+            <p className="text-base max-w-prose text-justify break-words sm:normal-words" style={{ color: nordColors.snowStorm1 }}>
               Worked on website updates and content editing, and developed software content for an online test for Japanese language acquisition.
             </p>
           </div>
@@ -327,7 +349,8 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
       </section>
 
       {/* Skills Section */}
-      <section className="bg-polarNight1 bg-opacity-70 p-6 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
+      {/* モバイル版のセクションのパディングを p-4 から p-5 に変更し、md:p-8 で中画面以上で大きくする */}
+      <section className="bg-polarNight1 bg-opacity-70 p-5 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
         <SectionTitle
           icon={Wrench}
           title="Skills"
