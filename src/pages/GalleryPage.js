@@ -117,6 +117,9 @@ function GalleryPage() {
       <p className="text-lg leading-relaxed mb-6" style={{ color: nordColors.snowStorm0 }}>
         Explore beautiful panoramas of Earth, showcasing diverse landscapes and atmospheric phenomena captured from space.
       </p>
+      <p className="text-sm text-frost1 block md:hidden mb-6">
+        * You can scroll horizontally to view the full panorama on mobile.
+      </p>
       <div className="grid grid-cols-1 gap-8">
         {earthPanoramas.map(panorama => (
           <PanoramaCard key={panorama.id} panorama={panorama} /> // PanoramaCardコンポーネントを使用
