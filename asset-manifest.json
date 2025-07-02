@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/homepage/static/css/main.41e2085a.css",
-    "main.js": "/homepage/static/js/main.c071de27.js",
+    "main.css": "/homepage/static/css/main.aadc5b2e.css",
+    "main.js": "/homepage/static/js/main.f7f086c0.js",
     "static/media/1000021689.jpg": "/homepage/static/media/1000021689.99e95cc06a4191e374ce.jpg",
     "static/media/IMG_2626.jpg": "/homepage/static/media/IMG_2626.58fb43d75d6eed774ef3.jpg",
     "static/media/IMG_4517.jpg": "/homepage/static/media/IMG_4517.ec9d2770c1a37f5c646f.jpg",
@@ -17,11 +17,11 @@
     "static/media/me.png": "/homepage/static/media/me.43300c123b8463564843.png",
     "static/media/utokyo_logo.png": "/homepage/static/media/utokyo_logo.9e7144f7fdda76a52a35.png",
     "index.html": "/homepage/index.html",
-    "main.41e2085a.css.map": "/homepage/static/css/main.41e2085a.css.map",
-    "main.c071de27.js.map": "/homepage/static/js/main.c071de27.js.map"
+    "main.aadc5b2e.css.map": "/homepage/static/css/main.aadc5b2e.css.map",
+    "main.f7f086c0.js.map": "/homepage/static/js/main.f7f086c0.js.map"
   },
   "entrypoints": [
-    "static/css/main.41e2085a.css",
-    "static/js/main.c071de27.js"
+    "static/css/main.aadc5b2e.css",
+    "static/js/main.f7f086c0.js"
   ]
 }
