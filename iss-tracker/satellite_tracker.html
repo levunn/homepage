@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISS Tracker</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/satellite.js@4.0.0/dist/satellite.min.js"></script>
+  <style>
+    #map {
+      height: 500px;
+      border-radius: 0.5rem;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+    <h1 class="text-2xl font-bold text-center mb-4">🛰️ ISS Tracker Map</h1>
+
+    <label class="block mb-2 text-gray-700">Select Date and Time (UTC):</label>
+    <input type="datetime-local" id="datetimeInput" class="w-full p-3 border rounded mb-2" />
+    <button id="nowButton" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 rounded mb-4">
+      Set Current Time (UTC)
+    </button>
+
+    <div class="flex gap-2 mb-4">
+      <button id="trackButton" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded">
+        Show Position
+      </button>
+      <button id="realtimeButton" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded">
+        Real-Time Track
+      </button>
+    </div>
+
+    <div id="map" class="mt-6"></div>
+
+    <div id="coords" class="text-center text-gray-700 font-mono mt-4 text-lg">
+      Latitude: ---, Longitude: ---
+    </div>
+  </div>
+
+  <script>
+    const datetimeInput = document.getElementById("datetimeInput");
+    const trackButton = document.getElementById("trackButton");
+    const nowButton = document.getElementById("nowButton");
+    const realtimeButton = document.getElementById("realtimeButton");
+
+    const tleLine1 = "1 25544U 98067A   23198.81822870  .00008581  00000+0  15664-3 0  9997";
+    const tleLine2 = "2 25544  51.6416 113.8860 0005175 220.7303 139.3697 15.49658514410976";
+    const satrec = satellite.twoline2satrec(tleLine1, tleLine2);
+
+    const size = 48;
+    const issIcon = L.divIcon({
+      html: `<div style="font-size: ${size}px;">🛰️</div>`,
+      className: "",
+      iconSize: [size, size],
+      iconAnchor: [size / 2 + 7, size / 2 + 7]
+    });
+
+    const map = L.map("map").setView([0, 0], 2);
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    let marker = null;
+    let orbitLineGroup = null;
+    let realtimeInterval = null;
+
+    function formatLat(lat) {
+      return lat >= 0 ? `N ${lat.toFixed(2)}` : `S ${Math.abs(lat.toFixed(2))}`;
+    }
+
+    function formatLon(lon) {
+      return lon >= 0 ? `E ${lon.toFixed(2)}` : `W ${Math.abs(lon.toFixed(2))}`;
+    }
+
+    function normalizeLongitude(lon) {
+      return (lon + 360) % 360;
+    }
+
+    function drawSatellitePosition(date, centerMap = false) {
+      const positionAndVelocity = satellite.propagate(satrec, date);
+      const gmst = satellite.gstime(date);
+      const geodetic = satellite.eciToGeodetic(positionAndVelocity.position, gmst);
+      const lat = satellite.degreesLat(geodetic.latitude);
+      const lon = satellite.degreesLong(geodetic.longitude);
+
+      if (marker) map.removeLayer(marker);
+      marker = L.marker([lat, lon], { icon: issIcon }).addTo(map);
+
+      if (centerMap) {
+        map.setView([lat, lon]);
+      }
+
+      document.getElementById("coords").textContent =
+        `Latitude: ${formatLat(lat)}, Longitude: ${formatLon(lon)}`;
+    }
+
+    function drawOrbitTrack(centerDate) {
+    if (orbitLineGroup) map.removeLayer(orbitLineGroup);
+
+    const lines = [];
+    let currentLine = [];
+    let previousLon = null;
+
+    for (let i = -60; i <= 60; i++) {
+        const d = new Date(centerDate.getTime() + i * 60 * 1000);
+        const posVel = satellite.propagate(satrec, d);
+        if (!posVel.position) continue;
+
+        const gmst = satellite.gstime(d);
+        const geo = satellite.eciToGeodetic(posVel.position, gmst);
+        const lat = satellite.degreesLat(geo.latitude);
+        const lon = satellite.degreesLong(geo.longitude);
+
+        if (
+        previousLon !== null &&
+        Math.abs(lon - previousLon) > 180
+        ) {
+        // 経度ジャンプが大きすぎた場合は線を切る
+        lines.push(L.polyline(currentLine, { color: "orange" }));
+        currentLine = [];
+        }
+
+        currentLine.push([lat, lon]);
+        previousLon = lon;
+    }
+
+    if (currentLine.length > 0) {
+        lines.push(L.polyline(currentLine, { color: "orange" }));
+    }
+
+    orbitLineGroup = L.layerGroup(lines).addTo(map);
+    }
+
+
+    function updateLivePosition(centerMap = false) {
+      const now = new Date();
+      drawSatellitePosition(now, centerMap);
+      drawOrbitTrack(now);
+    }
+
+    trackButton.addEventListener("click", () => {
+      const inputValue = datetimeInput.value;
+      if (!inputValue) return alert("Please enter a date and time.");
+      const date = new Date(inputValue);
+      drawSatellitePosition(date, true);
+      drawOrbitTrack(date);
+    });
+
+    nowButton.addEventListener("click", () => {
+      const now = new Date();
+      datetimeInput.value = now.toISOString().slice(0, 19);
+    });
+
+    realtimeButton.addEventListener("click", () => {
+      if (realtimeInterval) {
+        clearInterval(realtimeInterval);
+        realtimeInterval = null;
+        realtimeButton.textContent = "Real-Time Track";
+        realtimeButton.classList.remove("bg-red-600", "hover:bg-red-700");
+        realtimeButton.classList.add("bg-green-600", "hover:bg-green-700");
+      } else {
+        updateLivePosition(true);
+        realtimeInterval = setInterval(() => updateLivePosition(true), 1000);
+        realtimeButton.textContent = "Stop Tracking";
+        realtimeButton.classList.remove("bg-green-600", "hover:bg-green-700");
+        realtimeButton.classList.add("bg-red-600", "hover:bg-red-700");
+      }
+    });
+
+    setInterval(() => {
+      if (!datetimeInput.value && !realtimeInterval) updateLivePosition();
+    }, 5000);
+
+    updateLivePosition();
+  </script>
+</body>
+</html>
