@@ -323,6 +323,30 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
         )}
       </section>
 
+      {/* Resources Section */}
+      <section className="bg-polarNight1 bg-opacity-70 p-5 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
+        <SectionTitle
+          icon={FileText}
+          title="Resources"
+          iconColor={nordColors.frost1}
+          titleColor={nordColors.frost2}
+        />
+        <p className="mt-4 text-base md:text-lg text-justify mx-auto max-w-none sm:max-w-prose break-words sm:normal-words"
+           style={{ color: nordColors.snowStorm0, hyphens: 'auto', WebkitHyphens: 'auto' }}>
+          You can explore real-time satellite tracking here:
+          <br />
+          <a
+            href="https://levunn.github.io/homepage/iss-tracker/satellite_tracker.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-frost1 transition-colors duration-200"
+            style={{ color: nordColors.auroraGreen }}
+          >
+            🌍 View ISS Tracker
+          </a>
+        </p>
+      </section>
+
       {/* Past Extracurricular Projects Section */}
       {/* モバイル版のセクションのパディングを p-4 から p-5 に変更し、md:p-8 で中画面以上で大きくする */}
       <section className="bg-polarNight1 bg-opacity-70 p-5 md:p-8 rounded-xl shadow-lg border border-polarNight3 transition-all duration-300 hover:shadow-2xl hover:border-frost0">
