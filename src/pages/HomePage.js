@@ -336,7 +336,7 @@ function HomePage({ setCurrentPage, SectionTitle, nordColors }) {
           You can explore real-time satellite tracking here:
           <br />
           <a
-            href="https://levunn.github.io/homepage/iss-tracker/satellite_tracker.html"
+            href="https://levunn.github.io/homepage/iss-tracker/index.html"
             target="_blank"
             rel="noopener noreferrer"
             className="underline hover:text-frost1 transition-colors duration-200"
