@@ -5,179 +5,391 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ISS Tracker</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link
-    rel="stylesheet"
-    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/satellite.js@4.0.0/dist/satellite.min.js"></script>
   <style>
+    /* Custom styles for the map container */
     #map {
-      height: 500px;
-      border-radius: 0.5rem;
+      height: 70vh; /* Increased height for full-screen feel */
+      border-radius: 0.75rem; /* More rounded corners */
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Lighter shadow */
+      border: 1px solid rgba(0, 0, 0, 0.1); /* Subtle border */
+    }
+
+    /* Body background with a subtle gradient */
+    body {
+      font-family: 'Inter', sans-serif; /* Apply Inter font */
+      background: linear-gradient(to bottom right, #e0f2f7, #c1e4ee); /* Lighter, subtle gradient background */
+      color: #333; /* Darker text color for contrast */
+      min-height: 100vh; /* Ensure body takes full viewport height */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem; /* Add some padding around the content */
+    }
+
+    /* Custom styles for buttons to add animations */
+    .btn-primary {
+      transition: all 0.2s ease-in-out; /* Smooth transition for hover effects */
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px); /* Lift effect on hover */
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15); /* Deeper shadow on hover */
+    }
+
+    /* Custom modal styling */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1000; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #f0f8ff; /* Light background for modal */
+      margin: auto;
+      padding: 2rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      color: #333;
+    }
+
+    .close-button {
+      color: #333;
+      float: right;
+      font-size: 1.5rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close-button:hover,
+    .close-button:focus {
+      color: #555;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Keyframe animation for ISS icon */
+    @keyframes pulse-iss {
+      0% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.8; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .iss-icon-pulse {
+      animation: pulse-iss 2s infinite ease-in-out; /* Apply pulse animation */
     }
   </style>
 </head>
-<body class="bg-gray-100 min-h-screen p-6">
-  <div class="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg">
-    <h1 class="text-2xl font-bold text-center mb-4">🛰️ ISS Tracker Map</h1>
+<body class="min-h-screen">
+  <div class="w-full max-w-4xl bg-white bg-opacity-90 p-8 rounded-xl shadow-2xl border border-gray-200">
+    <h1 class="text-4xl font-extrabold text-center mb-6 text-blue-600 tracking-wide drop-shadow-lg">
+      🛰️ ISS Tracker Map
+    </h1>
 
-    <label class="block mb-2 text-gray-700">Select Date and Time (UTC):</label>
-    <input type="datetime-local" id="datetimeInput" class="w-full p-3 border rounded mb-2" />
-    <button id="nowButton" class="w-full bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 rounded mb-4">
-      Set Current Time (UTC)
+    <label for="datetimeInput" class="block mb-2 text-gray-700 font-medium">Select Date and Time (UTC):</label>
+    <input
+      type="datetime-local"
+      id="datetimeInput"
+      class="w-full p-3 border border-gray-300 rounded-lg mb-3 bg-gray-50 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+    />
+    <button
+      id="nowButton"
+      class="w-full bg-gradient-to-r from-gray-300 to-gray-400 hover:from-gray-400 hover:to-gray-500 text-gray-800 font-bold py-3 rounded-lg mb-4 shadow-md hover:shadow-lg btn-primary flex items-center justify-center space-x-2"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <span>Set Current Time (UTC)</span>
     </button>
 
-    <div class="flex gap-2 mb-4">
-      <button id="trackButton" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded">
-        Show Position
+    <div class="flex flex-col sm:flex-row gap-4 mb-6">
+      <button
+        id="trackButton"
+        class="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-center space-x-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M18 8c0 4.5-6 9-6 9s-6-4.5-6-9a6 6 0 0 1 12 0Z"/><circle cx="12" cy="8" r="2"/></svg>
+        <span>Show Position</span>
       </button>
-      <button id="realtimeButton" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded">
-        Real-Time Track
+      <button
+        id="realtimeButton"
+        class="flex-1 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-center space-x-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        <span>Real-Time Track</span>
       </button>
     </div>
 
-    <div id="map" class="mt-6"></div>
+    <div id="map" class="mt-6 w-full"></div>
 
-    <div id="coords" class="text-center text-gray-700 font-mono mt-4 text-lg">
+    <div id="coords" class="text-center text-blue-700 font-mono mt-6 text-2xl font-semibold tracking-wide">
       Latitude: ---, Longitude: ---
+    </div>
+
+    <div id="currentTime" class="text-center text-gray-600 font-mono mt-2 text-lg">
+      Current Time (UTC): ---
+    </div>
+  </div>
+
+  <div id="customAlertModal" class="modal">
+    <div class="modal-content">
+      <span class="close-button" id="closeAlertModal">&times;</span>
+      <p id="alertMessage" class="text-lg"></p>
+      <button id="alertOkButton" class="mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-bold">OK</button>
     </div>
   </div>
 
   <script>
+    // Get references to DOM elements
     const datetimeInput = document.getElementById("datetimeInput");
     const trackButton = document.getElementById("trackButton");
     const nowButton = document.getElementById("nowButton");
     const realtimeButton = document.getElementById("realtimeButton");
+    const customAlertModal = document.getElementById("customAlertModal");
+    const alertMessage = document.getElementById("alertMessage");
+    const closeAlertModal = document.getElementById("closeAlertModal");
+    const alertOkButton = document.getElementById("alertOkButton");
+    const currentTimeDisplay = document.getElementById("currentTime"); // New: Reference to current time display
 
+    // TLE data for the International Space Station (ISS)
     const tleLine1 = "1 25544U 98067A   23198.81822870  .00008581  00000+0  15664-3 0  9997";
     const tleLine2 = "2 25544  51.6416 113.8860 0005175 220.7303 139.3697 15.49658514410976";
     const satrec = satellite.twoline2satrec(tleLine1, tleLine2);
 
-    const size = 48;
+    // Define the size for the ISS icon
+    const size = 56; // Slightly larger for better visibility
+    // Create a custom Leaflet icon using an emoji and a pulsing animation class
     const issIcon = L.divIcon({
-      html: `<div style="font-size: ${size}px;">🛰️</div>`,
-      className: "",
+      html: `<div class="iss-icon-pulse" style="font-size: ${size}px;">🛰️</div>`,
+      className: "", // Empty class to avoid default Leaflet styling
       iconSize: [size, size],
-      iconAnchor: [size / 2 + 7, size / 2 + 7]
+      iconAnchor: [size / 2 + 7, size / 2 + 7] // Adjust anchor for centering
     });
 
-    const map = L.map("map").setView([0, 0], 2);
+    // Initialize the Leaflet map with a light tile layer
+    const map = L.map("map").setView([0, 0], 2); // Set initial view to center of the world with zoom level 2
+    // Changed tile layer to a reliable OpenStreetMap provider
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      attribution: '&copy; OpenStreetMap contributors'
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    let marker = null;
-    let orbitLineGroup = null;
-    let realtimeInterval = null;
+    let marker = null; // Variable to store the ISS marker
+    let orbitLineGroup = null; // Variable to store the orbit line layer group
+    let realtimeInterval = null; // Variable to store the interval for real-time tracking
 
+    /**
+     * Formats latitude for display with N/S indicator.
+     * @param {number} lat - Latitude value.
+     * @returns {string} Formatted latitude string.
+     */
     function formatLat(lat) {
-      return lat >= 0 ? `N ${lat.toFixed(2)}` : `S ${Math.abs(lat.toFixed(2))}`;
+      return lat >= 0 ? `N ${lat.toFixed(2)}°` : `S ${Math.abs(lat).toFixed(2)}°`;
     }
 
+    /**
+     * Formats longitude for display with E/W indicator.
+     * @param {number} lon - Longitude value.
+     * @returns {string} Formatted longitude string.
+     */
     function formatLon(lon) {
-      return lon >= 0 ? `E ${lon.toFixed(2)}` : `W ${Math.abs(lon.toFixed(2))}`;
+      return lon >= 0 ? `E ${lon.toFixed(2)}°` : `W ${Math.abs(lon).toFixed(2)}°`;
     }
 
-    function normalizeLongitude(lon) {
-      return (lon + 360) % 360;
+    /**
+     * Shows a custom alert modal with a given message.
+     * @param {string} message - The message to display in the alert.
+     */
+    function showAlert(message) {
+      alertMessage.textContent = message;
+      customAlertModal.style.display = "flex"; // Show the modal
     }
 
+    // Event listeners for closing the modal
+    closeAlertModal.addEventListener("click", () => {
+      customAlertModal.style.display = "none";
+    });
+    alertOkButton.addEventListener("click", () => {
+      customAlertModal.style.display = "none";
+    });
+    window.addEventListener("click", (event) => {
+      if (event.target == customAlertModal) {
+        customAlertModal.style.display = "none";
+      }
+    });
+
+    /**
+     * Draws the satellite position on the map for a given date.
+     * @param {Date} date - The date and time for which to calculate the position.
+     * @param {boolean} centerMap - Whether to center the map on the ISS position.
+     */
     function drawSatellitePosition(date, centerMap = false) {
+      // Propagate the satellite's position and velocity for the given date
       const positionAndVelocity = satellite.propagate(satrec, date);
+      // Calculate Greenwich Mean Sidereal Time (GMST)
       const gmst = satellite.gstime(date);
+      // Convert ECI (Earth-Centered Inertial) coordinates to geodetic (latitude, longitude, altitude)
       const geodetic = satellite.eciToGeodetic(positionAndVelocity.position, gmst);
+      // Convert radians to degrees for latitude and longitude
       const lat = satellite.degreesLat(geodetic.latitude);
       const lon = satellite.degreesLong(geodetic.longitude);
 
-      if (marker) map.removeLayer(marker);
+      // Remove existing marker if it exists
+      if (marker) {
+        map.removeLayer(marker);
+      }
+      // Add a new marker at the calculated position
       marker = L.marker([lat, lon], { icon: issIcon }).addTo(map);
 
+      // Center the map view on the ISS if requested
       if (centerMap) {
-        map.setView([lat, lon]);
+        map.setView([lat, lon]); // Slightly higher zoom when centering
       }
 
+      // Update the coordinates display
       document.getElementById("coords").textContent =
         `Latitude: ${formatLat(lat)}, Longitude: ${formatLon(lon)}`;
     }
 
+    /**
+     * Draws the orbit track of the satellite for a period around the center date.
+     * Handles longitude wrapping to prevent lines crossing the map abruptly.
+     * @param {Date} centerDate - The central date for which to draw the orbit.
+     */
     function drawOrbitTrack(centerDate) {
-    if (orbitLineGroup) map.removeLayer(orbitLineGroup);
+      // Remove existing orbit line if it exists
+      if (orbitLineGroup) {
+        map.removeLayer(orbitLineGroup);
+      }
 
-    const lines = [];
-    let currentLine = [];
-    let previousLon = null;
+      const lines = []; // Array to hold multiple polyline segments
+      let currentLine = []; // Current segment of the polyline
+      let previousLon = null; // To track longitude for wrap-around detection
 
-    for (let i = -60; i <= 60; i++) {
-        const d = new Date(centerDate.getTime() + i * 60 * 1000);
-        const posVel = satellite.propagate(satrec, d);
-        if (!posVel.position) continue;
+      // Calculate positions for 60 minutes before and 60 minutes after the centerDate
+      for (let i = -60; i <= 60; i++) {
+        const d = new Date(centerDate.getTime() + i * 60 * 1000); // Date for each minute
+        const posVel = satellite.propagate(satrec, d); // Propagate position
+        if (!posVel.position) continue; // Skip if position is not valid
 
         const gmst = satellite.gstime(d);
         const geo = satellite.eciToGeodetic(posVel.position, gmst);
         const lat = satellite.degreesLat(geo.latitude);
         const lon = satellite.degreesLong(geo.longitude);
 
+        // Detect large longitude jumps (crossing the anti-meridian)
         if (
-        previousLon !== null &&
-        Math.abs(lon - previousLon) > 180
+          previousLon !== null &&
+          Math.abs(lon - previousLon) > 180 // If difference is greater than 180 degrees
         ) {
-        // 経度ジャンプが大きすぎた場合は線を切る
-        lines.push(L.polyline(currentLine, { color: "orange" }));
-        currentLine = [];
+          // If a jump is detected, finish the current line segment and start a new one
+          if (currentLine.length > 0) {
+            lines.push(L.polyline(currentLine, { color: "purple", weight: 3, dashArray: '5, 10' })); // Changed color to purple
+          }
+          currentLine = []; // Start a new line segment
         }
 
-        currentLine.push([lat, lon]);
-        previousLon = lon;
+        currentLine.push([lat, lon]); // Add current point to the segment
+        previousLon = lon; // Update previous longitude
+      }
+
+      // Add the last segment if it has points
+      if (currentLine.length > 0) {
+        lines.push(L.polyline(currentLine, { color: "purple", weight: 3, dashArray: '5, 10' })); // Changed color to purple
+      }
+
+      // Create a layer group from all polyline segments and add to map
+      orbitLineGroup = L.layerGroup(lines).addTo(map);
     }
 
-    if (currentLine.length > 0) {
-        lines.push(L.polyline(currentLine, { color: "orange" }));
-    }
-
-    orbitLineGroup = L.layerGroup(lines).addTo(map);
-    }
-
-
-    function updateLivePosition(centerMap = false) {
+    /**
+     * Updates the current time display.
+     */
+    function updateCurrentTimeDisplay() {
       const now = new Date();
-      drawSatellitePosition(now, centerMap);
-      drawOrbitTrack(now);
+      // Format the date and time to a readable string, e.g., "YYYY-MM-DD HH:MM:SS UTC"
+      currentTimeDisplay.textContent = `Current Time (UTC): ${now.toISOString().slice(0, 19).replace('T', ' ')} UTC`;
     }
 
+    /**
+     * Updates the live position of the ISS and its orbit track.
+     * @param {boolean} centerMap - Whether to center the map on the ISS position.
+     */
+    function updateLivePosition(centerMap = false) {
+      const now = new Date(); // Get current date and time
+      drawSatellitePosition(now, centerMap); // Draw current ISS position
+      drawOrbitTrack(now); // Draw orbit track around current time
+      updateCurrentTimeDisplay(); // Update current time display
+    }
+
+    // Event listener for the "Show Position" button
     trackButton.addEventListener("click", () => {
       const inputValue = datetimeInput.value;
-      if (!inputValue) return alert("Please enter a date and time.");
+      if (!inputValue) {
+        showAlert("Please select a date and time to show the ISS position.");
+        return;
+      }
       const date = new Date(inputValue);
-      drawSatellitePosition(date, true);
-      drawOrbitTrack(date);
-    });
-
-    nowButton.addEventListener("click", () => {
-      const now = new Date();
-      datetimeInput.value = now.toISOString().slice(0, 19);
-    });
-
-    realtimeButton.addEventListener("click", () => {
+      drawSatellitePosition(date, true); // Draw position and center map
+      drawOrbitTrack(date); // Draw orbit track for the selected time
+      // Stop real-time tracking if it's active
       if (realtimeInterval) {
         clearInterval(realtimeInterval);
         realtimeInterval = null;
-        realtimeButton.textContent = "Real-Time Track";
-        realtimeButton.classList.remove("bg-red-600", "hover:bg-red-700");
-        realtimeButton.classList.add("bg-green-600", "hover:bg-green-700");
+        realtimeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span>Real-Time Track</span>`;
+        realtimeButton.classList.remove("bg-gradient-to-r", "from-red-500", "to-red-600", "hover:from-red-600", "hover:to-red-700");
+        realtimeButton.classList.add("bg-gradient-to-r", "from-green-500", "to-green-600", "hover:from-green-600", "hover:to-green-700");
+      }
+      updateCurrentTimeDisplay(); // Update time display when showing a specific position
+    });
+
+    // Event listener for the "Set Current Time (UTC)" button
+    nowButton.addEventListener("click", () => {
+      const now = new Date();
+      // Format the current date and time to fit the datetime-local input format (YYYY-MM-DDTHH:MM)
+      datetimeInput.value = now.toISOString().slice(0, 19);
+      updateCurrentTimeDisplay(); // Update time display when setting current time
+    });
+
+    // Event listener for the "Real-Time Track" button
+    realtimeButton.addEventListener("click", () => {
+      if (realtimeInterval) {
+        // If real-time tracking is active, stop it
+        clearInterval(realtimeInterval);
+        realtimeInterval = null;
+        realtimeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg><span>Real-Time Track</span>`;
+        realtimeButton.classList.remove("bg-gradient-to-r", "from-red-500", "to-red-600", "hover:from-red-600", "hover:to-red-700");
+        realtimeButton.classList.add("bg-gradient-to-r", "from-green-500", "to-green-600", "hover:from-green-600", "hover:to-green-700");
       } else {
-        updateLivePosition(true);
-        realtimeInterval = setInterval(() => updateLivePosition(true), 1000);
-        realtimeButton.textContent = "Stop Tracking";
-        realtimeButton.classList.remove("bg-green-600", "hover:bg-green-700");
-        realtimeButton.classList.add("bg-red-600", "hover:bg-red-700");
+        // If real-time tracking is not active, start it
+        updateLivePosition(true); // Initial update and center map
+        realtimeInterval = setInterval(() => updateLivePosition(true), 1000); // Update every second
+        realtimeButton.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-x"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg><span>Stop Tracking</span>`;
+        realtimeButton.classList.remove("bg-gradient-to-r", "from-green-500", "to-green-600", "hover:from-green-600", "hover:to-green-700");
+        realtimeButton.classList.add("bg-gradient-to-r", "from-red-500", "to-red-600", "hover:from-red-600", "hover:to-red-700");
       }
     });
 
+    // Automatically update position and time every 5 seconds if no specific date is selected and not in real-time mode
     setInterval(() => {
-      if (!datetimeInput.value && !realtimeInterval) updateLivePosition();
+      if (!datetimeInput.value && !realtimeInterval) {
+        updateLivePosition();
+      }
     }, 5000);
 
+    // Initial load: display current ISS position and time
     updateLivePosition();
   </script>
 </body>
