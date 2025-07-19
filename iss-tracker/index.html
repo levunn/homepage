@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Satellite Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/satellite.js@4.0.0/dist/satellite.min.js"></script>
+    <script src="https://unpkg.com/leaflet-polylinedecorator@1.7.0/dist/leaflet.polylineDecorator.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="min-h-screen">
+    <div class="w-full max-w-4xl bg-white bg-opacity-90 p-8 rounded-xl shadow-2xl border border-gray-200">
+        <h1 class="text-4xl font-extrabold text-center mb-6 text-blue-600 tracking-wide drop-shadow-lg">
+            🛰️ Satellite Tracker Map 🌎
+        </h1>
+
+        <label for="datetimeInput" class="block mb-2 text-gray-700 font-medium">Select Date and Time (UTC):</label>
+        <input
+            type="datetime-local"
+            id="datetimeInput"
+            class="w-full p-3 border border-gray-300 rounded-lg mb-3 bg-gray-50 text-gray-800 focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+        />
+        <button
+            id="nowButton"
+            class="w-full bg-gradient-to-r from-gray-300 to-gray-400 hover:from-gray-400 hover:to-gray-500 text-gray-800 font-bold py-3 rounded-lg mb-4 shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clock"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span>Set Current Time (UTC)</span>
+        </button>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-6">
+            <button
+                id="trackButton"
+                class="flex-1 bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-map-pin"><path d="M18 8c0 4.5-6 9-6 9s-6-4.5-6-9a6 6 0 0 1 12 0Z"/><circle cx="12" cy="8" r="2"/></svg>
+                <span>Show Position (All Satellites)</span>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            <button
+                id="realtimeIssButton"
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Real-Time Track (ISS)</span>
+            </button>
+            <button
+                id="realtimeViirsButton"
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Real-Time Track (VIIRS)</span>
+            </button>
+            <button
+                id="realtimeGoes16Button"
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Real-Time Track (GOES-16)</span>
+            </button>
+            <button
+                id="realtimeGoes17Button"
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Real-Time Track (GOES-17)</span>
+            </button>
+            <button
+                id="realtimeGoes18Button"
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Real-Time Track (GOES-18)</span>
+            </button>
+            <button
+                id="realtimeTerraButton"
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Real-Time Track (Terra)</span>
+            </button>
+            <button
+                id="realtimeAquaButton"
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Real-Time Track (Aqua)</span>
+            </button>
+            <button
+                id="realtimeLandsatButton"
+                class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-3 rounded-lg shadow-md hover:shadow-lg btn-primary flex items-center justify-content-center space-x-2"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-activity"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                <span>Real-Time Track (Landsat 8)</span>
+            </button>
+        </div>
+
+        <div class="mb-6 p-4 bg-gray-50 rounded-lg shadow-inner">
+            <h3 class="text-xl font-semibold text-gray-800 mb-3">Display Options</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 text-sm">
+                <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                    <input type="checkbox" id="toggleIss" class="form-checkbox h-4 w-4 text-purple-600 rounded" checked>
+                    <span>ISS</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                    <input type="checkbox" id="toggleViirs" class="form-checkbox h-4 w-4 text-red-600 rounded" checked>
+                    <span>VIIRS</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                    <input type="checkbox" id="toggleGoes16" class="form-checkbox h-4 w-4 text-orange-600 rounded" checked>
+                    <span>GOES-16</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                    <input type="checkbox" id="toggleGoes17" class="form-checkbox h-4 w-4 text-orangered-600 rounded" checked>
+                    <span>GOES-17</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                    <input type="checkbox" id="toggleGoes18" class="form-checkbox h-4 w-4 text-goldenrod-600 rounded" checked>
+                    <span>GOES-18</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                    <input type="checkbox" id="toggleTerra" class="form-checkbox h-4 w-4 text-green-600 rounded" checked>
+                    <span>Terra</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                    <input type="checkbox" id="toggleAqua" class="form-checkbox h-4 w-4 text-blue-600 rounded" checked>
+                    <span>Aqua</span>
+                </label>
+                <label class="flex items-center space-x-2 cursor-pointer text-gray-700">
+                    <input type="checkbox" id="toggleLandsat" class="form-checkbox h-4 w-4 text-brown-600 rounded" checked>
+                    <span>Landsat 8</span>
+                </label>
+            </div>
+        </div>
+
+        <div id="map" class="mt-6 w-full"></div>
+
+        <div id="legend"></div>
+        <div id="issCoords" class="text-center text-blue-700 font-mono mt-6 text-xl font-semibold tracking-wide">
+            ISS Latitude: ---, Longitude: ---
+        </div>
+        <div id="viirsCoords" class="text-center text-red-700 font-mono mt-2 text-xl font-semibold tracking-wide">
+            VIIRS Latitude: ---, Longitude: ---
+        </div>
+        <div id="goes16Coords" class="text-center text-orange-700 font-mono mt-2 text-xl font-semibold tracking-wide">
+            GOES-16 Latitude: ---, Longitude: ---
+        </div>
+        <div id="goes17Coords" class="text-center text-orangered-700 font-mono mt-2 text-xl font-semibold tracking-wide">
+            GOES-17 Latitude: ---, Longitude: ---
+        </div>
+        <div id="goes18Coords" class="text-center text-goldenrod-700 font-mono mt-2 text-xl font-semibold tracking-wide">
+            GOES-18 Latitude: ---, Longitude: ---
+        </div>
+        <div id="terraCoords" class="text-center text-green-700 font-mono mt-2 text-xl font-semibold tracking-wide">
+            Terra Latitude: ---, Longitude: ---
+        </div>
+        <div id="aquaCoords" class="text-center text-blue-700 font-mono mt-2 text-xl font-semibold tracking-wide">
+            Aqua Latitude: ---, Longitude: ---
+        </div>
+        <div id="landsatCoords" class="text-center text-brown-700 font-mono mt-2 text-xl font-semibold tracking-wide">
+            Landsat 8 Latitude: ---, Longitude: ---
+        </div>
+
+        <div id="currentTime" class="text-center text-gray-600 font-mono mt-2 text-lg">
+            Current Time (UTC): ---
+        </div>
+    </div>
+
+    <div id="customAlertModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeAlertModal">&times;</span>
+            <p id="alertMessage" class="text-lg"></p>
+            <button id="alertOkButton" class="mt-4 px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg font-bold">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
