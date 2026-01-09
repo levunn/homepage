@@ -121,7 +121,7 @@ const earthPanoramas = [
     src: img6705,
     alt: 'Lake Tahoe Sunset',
     location: 'Monkey Rock, Lake Tahoe, California',
-    time: 'May, 2025', // 推測される時期
+    time: 'June, 2025', // 推測される時期
     description: 'A breathtaking panorama of the clear blue waters of Lake Tahoe from the Monkey Rock Trailhead.'
   },
   {
