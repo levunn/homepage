@@ -54,7 +54,7 @@ function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
 const earthPanoramas = [
   {
     id: 1, // idを元の順序で振り直し
-    src: img5303,
+    src: img8193,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
@@ -62,7 +62,7 @@ const earthPanoramas = [
   },
   {
     id: 2, // idを元の順序で振り直し
-    src: img5303,
+    src: img8114,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
@@ -70,7 +70,7 @@ const earthPanoramas = [
   },
   {
     id: 3, // idを元の順序で振り直し
-    src: img5303,
+    src: img8101,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
@@ -78,7 +78,7 @@ const earthPanoramas = [
   },
   {
     id: 4, // idを元の順序で振り直し
-    src: img5303,
+    src: img8072,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
@@ -86,7 +86,7 @@ const earthPanoramas = [
   },
   {
     id: 5, // idを元の順序で振り直し
-    src: img5303,
+    src: img7720,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
@@ -94,7 +94,7 @@ const earthPanoramas = [
   },
   {
     id: 6, // idを元の順序で振り直し
-    src: img5303,
+    src: img7387,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
@@ -102,7 +102,7 @@ const earthPanoramas = [
   },
   {
     id: 7, // idを元の順序で振り直し
-    src: img5303,
+    src: img7206,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
@@ -110,7 +110,7 @@ const earthPanoramas = [
   },
   {
     id: 8, // idを元の順序で振り直し
-    src: img5303,
+    src: img6218,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
@@ -118,7 +118,7 @@ const earthPanoramas = [
   },
   {
     id: 9, // idを元の順序で振り直し
-    src: img5303,
+    src: img6705,
     alt: 'Chicago Skyline and Lake Michigan',
     location: 'Lakefront Trail, Chicago, Illinois, USA',
     time: 'June, 2024',
