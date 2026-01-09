@@ -65,7 +65,7 @@ const earthPanoramas = [
     src: img8114,
     alt: 'Monument Valley',
     location: 'Monument Valley Navajo Tribal Park, Utah & Arizona, USA',
-    time: 'November, 2024',
+    time: 'November, 2025',
     description: 'A panoramic view of the iconic sandstone buttes of Monument Valley, bathed in the warm glow of the setting sun.'
   },
   {
@@ -73,7 +73,7 @@ const earthPanoramas = [
     src: img8101,
     alt: 'Canyonlands National Park',
     location: 'Canyonlands National Park, Utah, USA',
-    time: 'November, 2024',
+    time: 'November, 2025',
     description: 'A panoramic view of the Canyonlands National Park showcasing its dramatic desert landscape and unique rock formations.'
   },
   {
@@ -81,7 +81,7 @@ const earthPanoramas = [
     src: img8072,
     alt: 'Arches National Park',
     location: 'Arches National Park, Utah, USA',
-    time: 'November, 2024',
+    time: 'November, 2025',
     description: 'A panoramic view of the natural sandstone arches and rock formations in Arches National Park.'
   },
   {
@@ -89,7 +89,7 @@ const earthPanoramas = [
     src: img7720,
     alt: 'Craters of the Moon National Monument & Preserve',
     location: 'Craters of the Moon National Monument & Preserve, Idaho, USA',
-    time: 'October, 2024',
+    time: 'October, 2025',
     description: 'A panoramic view of the unique volcanic landscape of Craters of the Moon National Monument & Preserve.'
   },
   {
@@ -97,7 +97,7 @@ const earthPanoramas = [
     src: img7387,
     alt: 'Yosemite National Park',
     location: 'Yosemite National Park, California, USA',
-    time: 'October, 2024',
+    time: 'October, 2025',
     description: 'A panoramic view of the Yosemite National Park showcasing its majestic granite cliffs, waterfalls, and lush forests.'
   },
   {
@@ -105,7 +105,7 @@ const earthPanoramas = [
     src: img7206,
     alt: 'San Francisco Skyline and Bay',
     location: 'Coit Tower, San Francisco, California, USA',
-    time: 'October, 2024',
+    time: 'October, 2025',
     description: 'A panoramic view of the San Francisco skyline and bay area, featuring iconic landmarks and vibrant waterfront scenes.'
   },
   {
@@ -113,7 +113,7 @@ const earthPanoramas = [
     src: img6218,
     alt: 'Cardrona Alpine Resort',
     location: 'Cardrona Alpine Resort, Cardrona, New Zealand',
-    time: 'August, 2024',
+    time: 'August, 2025',
     description: 'A panoramic view of the Cardrona Alpine Resort, showcasing its scenic mountain landscapes and ski slopes.'
   },
   {
