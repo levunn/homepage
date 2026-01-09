@@ -55,18 +55,18 @@ const earthPanoramas = [
   {
     id: 1, // idを元の順序で振り直し
     src: img8193,
-    alt: 'Chicago Skyline and Lake Michigan',
-    location: 'Lakefront Trail, Chicago, Illinois, USA',
-    time: 'June, 2024',
-    description: 'A panoramic view of the Chicago skyline seen across the vibrant waters of Lake Michigan, framed by green parks and urban walkways.'
+    alt: 'White Sands National Park',
+    location: 'White Sands National Park, New Mexico, USA',
+    time: 'November, 2025',
+    description: 'A panoramic view of the vast white gypsum sand dunes of White Sands National Park under a clear blue sky.'
   },
   {
     id: 2, // idを元の順序で振り直し
     src: img8114,
-    alt: 'Chicago Skyline and Lake Michigan',
-    location: 'Lakefront Trail, Chicago, Illinois, USA',
+    alt: 'Monument Valley',
+    location: 'Monument Valley Navajo Tribal Park, Utah, USA',
     time: 'June, 2024',
-    description: 'A panoramic view of the Chicago skyline seen across the vibrant waters of Lake Michigan, framed by green parks and urban walkways.'
+    description: 'A panoramic view of the iconic sandstone buttes of Monument Valley, bathed in the warm glow of the setting sun.'
   },
   {
     id: 3, // idを元の順序で振り直し
