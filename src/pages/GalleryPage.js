@@ -1,7 +1,7 @@
 // src/pages/GalleryPage.js
-import React, { useEffect, useRef, useState } from 'react'; // useStateをインポートに追加
+import React, { useEffect, useRef, useState } from 'react';
 
-// 画像のインポートを整理
+// 画像のインポート
 import img2860 from '../assets/images/IMG_2860.jpg';
 import img3006 from '../assets/images/IMG_3006_.jpg';
 import img4517 from '../assets/images/IMG_4517.jpg';
@@ -9,13 +9,21 @@ import img4652 from '../assets/images/IMG_4652.jpg';
 import img2626 from '../assets/images/IMG_2626.jpg';
 import img4821 from '../assets/images/IMG_4821.jpg';
 import img1000021689 from '../assets/images/1000021689.jpg';
-import img5303 from '../assets/images/IMG_5303.jpg'; // 新しく追加された画像
-import img0480 from '../assets/images/IMG_0480.jpg'; // 新しく追加された画像
+import img5303 from '../assets/images/IMG_5303.jpg';
+import img0480 from '../assets/images/IMG_0480.jpg';
 
-import {
-  Globe // Globeアイコンをインポート
-} from 'lucide-react';
+// 新しく追加された画像
+import img8072 from '../assets/images/IMG_8072.jpg';
+import img8193 from '../assets/images/IMG_8193.jpg';
+import img6705 from '../assets/images/IMG_6705.jpg';
+import img7206 from '../assets/images/IMG_7206.jpg';
+import img6218 from '../assets/images/IMG_6218.jpg';
+import img8114 from '../assets/images/IMG_8114.jpg';
+import img7387 from '../assets/images/IMG_7387.jpg';
+import img7720 from '../assets/images/IMG_7720.jpg';
+import img8101 from '../assets/images/IMG_8101.jpg';
 
+import { Globe } from 'lucide-react';
 
 const nordColors = {
   polarNight1: '#3B4252',
@@ -28,7 +36,6 @@ const nordColors = {
   frost2: '#81A1C1',
 };
 
-// Helper component for section titles with icons (ExperiencePage.jsからコピー)
 function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
   return (
     <div className="flex items-center mb-4">
@@ -40,79 +47,156 @@ function SectionTitle({ icon: IconComponent, title, iconColor, titleColor }) {
   );
 }
 
-// Earth panorama images
+// 時系列（新しい順）のデータ
 const earthPanoramas = [
+  // --- 2025 May ---
   {
-    id: 1, // idを元の順序で振り直し
-    src: img5303,
-    alt: 'Chicago Skyline and Lake Michigan',
-    location: 'Lakefront Trail, Chicago, Illinois, USA',
-    time: 'June, 2024',
-    description: 'A panoramic view of the Chicago skyline seen across the vibrant waters of Lake Michigan, framed by green parks and urban walkways.'
+    id: 1,
+    src: img7387,
+    alt: 'Yosemite Valley from Glacier Point',
+    location: 'Glacier Point, Yosemite National Park, California, USA',
+    time: 'May, 2025',
+    description: 'A grand panorama overlooking Yosemite Valley, featuring the iconic Half Dome and the vast Sierra Nevada wilderness.'
   },
   {
-    id: 2, // idを元の順序で振り直し
+    id: 2,
+    src: img6705,
+    alt: 'Lake Tahoe Sunset',
+    location: 'Sand Harbor, Lake Tahoe, Nevada, USA',
+    time: 'May, 2025',
+    description: 'Golden hour reflections over the crystal-clear waters of Lake Tahoe, framed by ancient granite boulders.'
+  },
+  {
+    id: 3,
     src: img4821,
-    alt: 'Lake Louise, Banff National Park',
+    alt: 'Lake Louise, Banff',
     location: 'Lake Louise, Banff National Park, Alberta, Canada',
-    time: 'May, 2025', // 推測される時期
-    description: 'A panoramic view of the turquoise Lake Louise, surrounded by snow-capped peaks, glaciers, and dense pine forests in Banff National Park.'
+    time: 'May, 2025',
+    description: 'The famous turquoise waters of Lake Louise, surrounded by the majestic Victoria Glacier and pine forests.'
   },
   {
-    id: 3, // idを元の順序で振り直し
+    id: 4,
     src: img4652,
-    alt: 'Bow Lake, Banff National Park',
+    alt: 'Bow Lake, Banff',
     location: 'Bow Lake, Banff National Park, Alberta, Canada',
-    time: 'May, 2025', // 推測される時期
-    description: 'A panoramic view of the partially frozen Bow Lake, nestled amidst snow-capped mountains in Banff National Park.'
+    time: 'May, 2025',
+    description: 'A serene view of the partially frozen Bow Lake, nestled amidst the rugged peaks of the Canadian Rockies.'
   },
   {
-    id: 4, // idを元の順序で振り直し
+    id: 5,
     src: img4517,
     alt: 'Lake Tahoe, Monkey Rock',
-    location: 'Monkey Rock, Lake Tahoe, California',
-    time: 'May, 2025', // 推測される時期
-    description: 'A breathtaking panorama of the clear blue waters of Lake Tahoe from the Monkey Rock Trailhead.'
+    location: 'Monkey Rock Trail, Lake Tahoe, Nevada, USA',
+    time: 'May, 2025',
+    description: 'A sweeping panorama of North Lake Tahoe’s deep blue waters from a high-altitude rocky viewpoint.'
   },
   {
-    id: 5, // idを元の順序で振り直し
-    src: img2860,
-    alt: 'Bryce Canyon National Park',
-    location: 'Bryce Canyon National Park, Utah, USA',
-    time: 'November, 2024', // 推測される時期
-    description: 'A stunning winter panorama of Bryce Canyon, featuring snow-dusted hoodoos under a clear blue sky.'
-  },  
+    id: 6,
+    src: img7206,
+    alt: 'San Francisco Skyline',
+    location: 'San Francisco Bay, California, USA',
+    time: 'May, 2025',
+    description: 'The urban heart of San Francisco as seen from across the bay, blending skyscrapers with coastal greenery.'
+  },
   {
-    id: 6, // idを元の順序で振り直し
+    id: 7,
+    src: img7720,
+    alt: 'Craters of the Moon',
+    location: 'Craters of the Moon National Monument, Idaho, USA',
+    time: 'May, 2025',
+    description: 'A surreal and stark volcanic landscape featuring massive cinder fields and dormant cones under a sharp blue sky.'
+  },
+  {
+    id: 8,
     src: img3006,
     alt: 'Antelope Canyon',
     location: 'Antelope Canyon, Arizona, USA',
-    time: 'May, 2025', // 推測される時期
-    description: 'The iconic slot canyon with its mesmerizing, wave-like rock formations and beams of light.'
+    time: 'May, 2025',
+    description: 'The mesmerizing flow of sunlight and shadow through the wave-like walls of this famous slot canyon.'
+  },
+  // --- 2025 January ---
+  {
+    id: 9,
+    src: img6218,
+    alt: 'Sierra Nevada Winter Inversion',
+    location: 'Mount Rose Summit, Nevada, USA',
+    time: 'January, 2025',
+    description: 'A spectacular weather inversion layering the valley in thick clouds, leaving the snowy peaks bathed in bright sunlight.'
+  },
+  // --- 2024 November ---
+  {
+    id: 10,
+    src: img8072,
+    alt: 'Delicate Arch, Arches National Park',
+    location: 'Delicate Arch, Arches National Park, Utah, USA',
+    time: 'November, 2024',
+    description: 'The iconic natural sandstone arch standing majestically against a backdrop of deep canyons and distant peaks.'
   },
   {
-    id: 7, // idを元の順序で振り直し
+    id: 11,
+    src: img8114,
+    alt: 'Monument Valley Sunrise',
+    location: 'Monument Valley Navajo Tribal Park, Arizona/Utah, USA',
+    time: 'November, 2024',
+    description: 'Breathtaking light at dawn over the Mittens and Merrick Butte, casting long shadows across the red desert.'
+  },
+  {
+    id: 12,
+    src: img8101,
+    alt: 'Canyonlands National Park',
+    location: 'Grand View Point, Canyonlands National Park, Utah, USA',
+    time: 'November, 2024',
+    description: 'An expansive view from the Island in the Sky mesa, showing the intricate "cracks" carved by the Colorado River.'
+  },
+  {
+    id: 13,
+    src: img8193,
+    alt: 'White Sands National Park',
+    location: 'White Sands National Park, New Mexico, USA',
+    time: 'November, 2024',
+    description: 'The minimalist beauty of undulating white gypsum dunes under a vast, cloudless sky.'
+  },
+  {
+    id: 14,
+    src: img2860,
+    alt: 'Bryce Canyon Winter',
+    location: 'Bryce Canyon National Park, Utah, USA',
+    time: 'November, 2024',
+    description: 'A stunning winter panorama where snow dusts the ancient orange hoodoos, creating a vibrant color contrast.'
+  },
+  {
+    id: 15,
     src: img2626,
-    alt: 'Nevada Desert Panorama',
-    location: 'Red Rock Canyon Area, Nevada, USA',
-    time: 'November, 2024', // 推測される時期
-    description: 'A wide view of the Nevada desert landscape, characterized by rugged mountains and sparse vegetation under a bright sun.'
+    alt: 'Nevada Desert Landscape',
+    location: 'Red Rock Canyon, Nevada, USA',
+    time: 'November, 2024',
+    description: 'The rugged mountains and sparse desert flora of Southern Nevada, characteristic of the Mojave Desert.'
   },
+  // --- 2024 July ---
   {
-    id: 8, // idを元の順序で振り直し
+    id: 16,
     src: img1000021689,
     alt: 'Mount Fuji Crater',
     location: 'Mount Fuji, Kengamine Peak, Japan',
-    time: 'July, 2024', // 推測される時期 (登山シーズン)
-    description: 'A panoramic view of the crater rim of Mount Fuji, Japan\'s iconic highest peak.'
+    time: 'July, 2024',
+    description: 'A rare panoramic view from the highest point of Japan, looking into the massive volcanic crater.'
+  },
+  // --- 2024 June ---
+  {
+    id: 17,
+    src: img5303,
+    alt: 'Chicago Skyline',
+    location: 'Lakefront Trail, Chicago, Illinois, USA',
+    time: 'June, 2024',
+    description: 'A panoramic urban view of Chicago seen across the vibrant blue waters of Lake Michigan.'
   },
   {
-    id: 9, // idを元の順序で振り直し
+    id: 18,
     src: img0480,
     alt: 'Mount Batur and Lake Batur, Bali',
-    location: 'Mount Batur Viewpoint, Kintamani, Bali, Indonesia',
+    location: 'Kintamani, Bali, Indonesia',
     time: 'June, 2024',
-    description: 'A sweeping view of the volcanic Mount Batur and the serene Lake Batur, captured from a popular panoramic lookout surrounded by cafes and tourists.'
+    description: 'The volcanic Mount Batur and its serene caldera lake, captured from a viewpoint in the highlands of Bali.'
   }
 ];
 
@@ -122,59 +206,51 @@ function GalleryPage() {
       <SectionTitle
         icon={Globe}
         title="Earth Panorama Gallery"
-        iconColor={nordColors.frost1} // アイコンの色を指定
+        iconColor={nordColors.frost1}
         titleColor={nordColors.frost2}
       />
       <p className="text-lg leading-relaxed mb-6" style={{ color: nordColors.snowStorm0 }}>
-        Explore beautiful panoramas of Earth, showcasing diverse landscapes and atmospheric phenomena captured from space.
+        A collection of panoramic views capturing diverse landscapes across the globe, from the peaks of Japan to the deserts of the American West.
       </p>
       <p className="text-sm text-frost1 block md:hidden mb-6">
         * You can scroll horizontally to view the full panorama on mobile.
       </p>
       <div className="grid grid-cols-1 gap-8">
         {earthPanoramas.map(panorama => (
-          <PanoramaCard key={panorama.id} panorama={panorama} /> // PanoramaCardコンポーネントを使用
+          <PanoramaCard key={panorama.id} panorama={panorama} />
         ))}
       </div>
     </section>
   );
 }
 
-
-// 新しいPanoramaCardコンポーネントを定義
 function PanoramaCard({ panorama }) {
   const scrollRef = useRef(null);
-  const [imageLoaded, setImageLoaded] = useState(false); // 画像のロード状態を管理するstateを追加
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
-    // コンポーネントがマウントされたとき、および依存配列が変更されたときに実行
-    // imageLoadedがtrueになってから処理を実行することで、画像が完全にロードされたことを保証
     if (scrollRef.current && imageLoaded) {
-      const imageElement = scrollRef.current.querySelector('img'); // img要素を取得
+      const imageElement = scrollRef.current.querySelector('img');
       if (imageElement) {
-        // 画像の実際の幅とコンテナの表示幅に基づいて中央にスクロール
-        const imageWidth = imageElement.scrollWidth; // img要素の幅を取得
-        const containerWidth = scrollRef.current.clientWidth; // コンテナの表示幅を取得
+        const imageWidth = imageElement.scrollWidth;
+        const containerWidth = scrollRef.current.clientWidth;
 
-        // 画像がコンテナより大きい場合にのみスクロールを適用
         if (imageWidth > containerWidth) {
           scrollRef.current.scrollLeft = (imageWidth - containerWidth) / 2;
         } else {
-          // 画像がコンテナに収まる場合は、Flexboxで中央寄せする
           scrollRef.current.style.justifyContent = 'center';
           scrollRef.current.style.display = 'flex';
         }
       }
     }
-  }, [imageLoaded, panorama.src]); // imageLoadedとpanorama.srcが変更されたときに再実行
+  }, [imageLoaded, panorama.src]);
 
-  // 画像がロードされたときに呼び出されるハンドラー
   const handleImageLoad = () => {
-    setImageLoaded(true); // 画像のロードが完了したことをマーク
+    setImageLoaded(true);
   };
 
   return (
-    <div className="bg-polarNight2 p-5 rounded-lg border border-polarNight3 hover:border-frost0 transition-all duration-200">
+    <div className="bg-polarNight2 p-5 rounded-lg border border-polarNight3 hover:border-frost1 transition-all duration-200">
       <div
         ref={scrollRef}
         className="overflow-x-auto whitespace-nowrap lg:overflow-x-hidden lg:whitespace-normal scrollbar-hide"
@@ -184,15 +260,17 @@ function PanoramaCard({ panorama }) {
           alt={panorama.alt}
           className="h-64 inline-block rounded-md mb-4 object-cover"
           style={{ width: 'auto', maxWidth: 'none' }}
-          onLoad={handleImageLoad} // 画像ロード時にhandleImageLoadを実行
+          onLoad={handleImageLoad}
         />
       </div>
-      <h3 className="text-xl font-semibold mb-2" style={{ color: nordColors.snowStorm2 }}>
-        {panorama.location}
-      </h3>
-      <p className="text-base" style={{ color: nordColors.snowStorm1 }}>
-        {panorama.time}
-      </p>
+      <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
+        <h3 className="text-xl font-semibold" style={{ color: nordColors.snowStorm2 }}>
+          {panorama.location}
+        </h3>
+        <span className="text-sm font-medium px-2 py-1 rounded bg-polarNight3" style={{ color: nordColors.frost1 }}>
+          {panorama.time}
+        </span>
+      </div>
       <p className="text-base mt-2" style={{ color: nordColors.snowStorm0 }}>
         {panorama.description}
       </p>
